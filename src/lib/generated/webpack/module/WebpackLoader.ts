@@ -4,6 +4,14 @@
             /* Webpack use module name for loading and computing code bundle and split chunk so we cannot introduce variable in the import thus we create this redirecting file*/
             switch (name) {
                 
+            case "@root/lib/modules/controller/cameraController/OrbitController": return import("@root/lib/modules/controller/cameraController/OrbitController");
+            case "@root/lib/modules/controller/pathFindingPlayer/Input": return import("@root/lib/modules/controller/pathFindingPlayer/Input");
+            case "@root/lib/modules/controller/pathFindingPlayer/NavMeshPlayer": return import("@root/lib/modules/controller/pathFindingPlayer/NavMeshPlayer");
+            case "@root/lib/modules/controller/PlayerService": return import("@root/lib/modules/controller/PlayerService");
+            case "@root/lib/modules/debug/DebugBtn": return import("@root/lib/modules/debug/DebugBtn");
+            case "@root/lib/modules/debug/PerformanceStats": return import("@root/lib/modules/debug/PerformanceStats");
+            case "@root/lib/modules/Sky": return import("@root/lib/modules/Sky");
+            case "@root/lib/modules/spoke/SpokeRoomLoader": return import("@root/lib/modules/spoke/SpokeRoomLoader");
             case "@root/lib/modules/three/ThreeLib": return import("@root/lib/modules/three/ThreeLib");
                 default: throw new Error(name+" not found in module list - please run npm run pre-build");
             }

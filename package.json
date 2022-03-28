@@ -66,6 +66,8 @@
   "dependencies": {
     "@aptero/axolotis-player": "file:../axolotis-player",
     "eventemitter3": "^4.0.7",
+    "phoenix": "^1.6.6",
+    "three-pathfinding": "^1.1.0",
     "tsutils": "^3.21.0"
   },
   "jest": {

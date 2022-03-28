@@ -162,8 +162,17 @@
     <ax-entity>
         <ax-component module="@root/demo/page/ComponentExample" config='{position:{x:1,y:2,z:3}}'></ax-component>
         <ax-component module="@root/lib/modules/Sky" config='{skymap:"assets/static/default/sky.jpg"}'></ax-component>
+        <ax-component module="@root/lib/modules/spoke/SpokeRoomLoader" config='{"room": "yUXD7A2"}'></ax-component>
+        <ax-component module="@root/lib/modules/controller/pathFindingPlayer/NavMeshPlayer" config='{
+        "position": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        }
+      }'></ax-component>
     </ax-entity>
     <ax-service module="@root/demo/page/ServiceExample"></ax-service>
+    <ax-service module="@root/lib/modules/debug/DebugBtn"></ax-service>
 </ax-scene>
 
 </body>

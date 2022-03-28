@@ -1,0 +1,51 @@
+import * as THREE from "three";
+import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
+import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
+import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
+import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
+import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
+import { Input } from "@root/lib/modules/controller/pathFindingPlayer/Input";
+import { Player, PlayerService } from "@root/lib/modules/controller/PlayerService";
+export declare class Factory implements WebpackLazyModule, ComponentFactory<NavMeshPlayer> {
+    createComponent(world: WorldEntity, config: any): Promise<NavMeshPlayer>;
+}
+export default class NavMeshPlayer implements Component, Player {
+    private input;
+    private playerService;
+    private camera;
+    private timeZeroToMax;
+    private decceleration;
+    private speed;
+    private maxSpeed;
+    private mouseSpeed;
+    private acceleration;
+    private isLocked;
+    private angles;
+    private pitch;
+    private jumpVelocity;
+    private yaw;
+    private tempVec;
+    private moveDir;
+    private yOffset;
+    private xAxis;
+    private yAxis;
+    private position;
+    private positionOutTmp;
+    private positionOutTmp2;
+    private rotation;
+    private velocity;
+    private navMesh;
+    getType(): string;
+    askFlyMode(): void;
+    declareNavMesh(navMesh: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>): void;
+    teleportToLocation(x: number, y: number, z: number): void;
+    getHeadPosition(targetCopy: THREE.Vector3): void;
+    constructor(position: any, rotation: any, three: ThreeLib, input: Input, playerService: PlayerService);
+    Initialize(): void;
+    OnPointerlockChange: () => void;
+    OnMouseMove: (event: any) => void;
+    UpdateRotation(): void;
+    Accelarate: (direction: any, t: any) => void;
+    Deccelerate: (t: any) => void;
+    Update(t: any): void;
+}
