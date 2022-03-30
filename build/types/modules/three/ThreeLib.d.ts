@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import Component from '@aptero/axolotis-player/build/types/modules/core/ecs/Component';
+import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
 import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
 import { FrameLoop, LazyServices, WorldService } from "@aptero/axolotis-player/build/types";
 import { Service } from "@aptero/axolotis-player/build/types/modules/core/service/LazyServices";

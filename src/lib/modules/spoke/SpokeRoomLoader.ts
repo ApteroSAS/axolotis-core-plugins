@@ -1,4 +1,3 @@
-
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
 import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
 import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
@@ -6,42 +5,53 @@ import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ec
 //import { ServiceEntity } from "@aptero/axolotis-player/build/types/modules/core/service/ServiceEntity";
 import { ServiceEntity } from "@aptero/axolotis-player";
 import SceneLoader from "@root/lib/modules/spoke/SceneLoader";
-import {ThreeLib} from "@root/lib/modules/three/ThreeLib";
-import {PlayerService} from "@root/lib/modules/controller/PlayerService";
-import {load} from "@root/lib/modules/spoke/PhoenixUtils";
+import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
+import { PlayerService } from "@root/lib/modules/controller/PlayerService";
+import { load } from "@root/lib/modules/spoke/PhoenixUtils";
 
 export class SpokeRoomLoader implements Component {
-    public sceneLoader: SceneLoader | null = null;
+  public sceneLoader: SceneLoader | null = null;
 
-    constructor(private threeLib:ThreeLib) {
-    }
+  constructor(private threeLib: ThreeLib) {}
 
-    async loadRoom(hubid){
-        const { data, hubPhxChannel, vapiddata } = await load(hubid);
-        const sceneURL = data.hubs[0].scene.model_url.replace(".bin",".glb");
-        this.sceneLoader = new SceneLoader();
-        await this.sceneLoader.loadScene(sceneURL,this.threeLib);
-    }
+  async loadRoom(hubid) {
+    const { data, hubPhxChannel, vapiddata } = await load(hubid);
+    const sceneURL = data.hubs[0].scene.model_url.replace(".bin", ".glb");
+    this.sceneLoader = new SceneLoader();
+    await this.sceneLoader.loadScene(sceneURL, this.threeLib);
+  }
 
-    getType(): string {
-        return SpokeRoomLoader.name;
-    }
+  getType(): string {
+    return SpokeRoomLoader.name;
+  }
 }
 
-export class Factory implements WebpackLazyModule, ComponentFactory<SpokeRoomLoader> {
-    async createComponent(world:WorldEntity, config:any): Promise<SpokeRoomLoader> {
-        let services = world.getFirstComponentByType<ServiceEntity>(ServiceEntity.name);
-        let three = await services.getService<ThreeLib>("@root/lib/modules/three/ThreeLib");
-        let playerService = await services.getService<PlayerService>("@root/lib/modules/controller/PlayerService");
-        let spokeRoomLoader = new SpokeRoomLoader(three);
-        await spokeRoomLoader.loadRoom(config.room);
-        if(spokeRoomLoader.sceneLoader) {
-            playerService.getCurrentPlayer().declareNavMesh(spokeRoomLoader.sceneLoader.navMesh);
-        }
-        return spokeRoomLoader;
+export class Factory
+  implements WebpackLazyModule, ComponentFactory<SpokeRoomLoader>
+{
+  async createComponent(
+    world: WorldEntity,
+    config: any
+  ): Promise<SpokeRoomLoader> {
+    let services = world.getFirstComponentByType<ServiceEntity>(
+      ServiceEntity.name
+    );
+    let three = await services.getService<ThreeLib>(
+      "@aptero/axolotis-core-plugins/modules/three/ThreeLib"
+    );
+    let playerService = await services.getService<PlayerService>(
+      "@aptero/axolotis-core-plugins/modules/controller/PlayerService"
+    );
+    let spokeRoomLoader = new SpokeRoomLoader(three);
+    await spokeRoomLoader.loadRoom(config.room);
+    if (spokeRoomLoader.sceneLoader) {
+      playerService
+        .getCurrentPlayer()
+        .declareNavMesh(spokeRoomLoader.sceneLoader.navMesh);
     }
+    return spokeRoomLoader;
+  }
 }
-
 
 /*
 Have to connect to the phoenix websocket

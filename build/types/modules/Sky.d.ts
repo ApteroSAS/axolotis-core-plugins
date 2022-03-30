@@ -1,4 +1,4 @@
-import Component from '@aptero/axolotis-player/build/types/modules/core/ecs/Component';
+import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
 import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
 import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
 import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";

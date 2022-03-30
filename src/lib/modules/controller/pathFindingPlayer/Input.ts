@@ -1,78 +1,79 @@
-
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
 import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
-import { LazyServices, Service } from "@aptero/axolotis-player/build/types/modules/core/service/LazyServices";
+import {
+  LazyServices,
+  Service,
+} from "@aptero/axolotis-player/build/types/modules/core/service/LazyServices";
 
-export class Input implements Component{
-    private _keyMap: any;
-    private events: any[];
-    constructor(){
-        this._keyMap = {};
-        this.events = [];
+export class Input implements Component {
+  private _keyMap: any;
+  private events: any[];
+  constructor() {
+    this._keyMap = {};
+    this.events = [];
 
-        this.AddKeyDownListner(this._onKeyDown);
-        this.AddKeyUpListner(this._onKeyUp);
-    }
+    this.AddKeyDownListner(this._onKeyDown);
+    this.AddKeyUpListner(this._onKeyUp);
+  }
 
-    getType(): string {
-        return Input.name;
-    }
+  getType(): string {
+    return Input.name;
+  }
 
-    _addEventListner(element, type, callback){
-        element.addEventListener(type, callback);
-        this.events.push({element, type, callback});
-    }
+  _addEventListner(element, type, callback) {
+    element.addEventListener(type, callback);
+    this.events.push({ element, type, callback });
+  }
 
-    AddKeyDownListner(callback){
-        this._addEventListner(document, 'keydown', callback);
-    }
+  AddKeyDownListner(callback) {
+    this._addEventListner(document, "keydown", callback);
+  }
 
-    AddKeyUpListner(callback){
-        this._addEventListner(document, 'keyup', callback);
-    }
+  AddKeyUpListner(callback) {
+    this._addEventListner(document, "keyup", callback);
+  }
 
-    AddMouseMoveListner(callback){
-        this._addEventListner(document, 'mousemove', callback);
-    }
+  AddMouseMoveListner(callback) {
+    this._addEventListner(document, "mousemove", callback);
+  }
 
-    AddClickListner(callback){
-        this._addEventListner(document.body, 'click', callback);
-    }
+  AddClickListner(callback) {
+    this._addEventListner(document.body, "click", callback);
+  }
 
-    AddMouseDownListner(callback){
-        this._addEventListner(document.body, 'mousedown', callback);
-    }
+  AddMouseDownListner(callback) {
+    this._addEventListner(document.body, "mousedown", callback);
+  }
 
-    AddMouseUpListner(callback){
-        this._addEventListner(document.body, 'mouseup', callback);
-    }
+  AddMouseUpListner(callback) {
+    this._addEventListner(document.body, "mouseup", callback);
+  }
 
-    _onKeyDown = (event) => {
-        this._keyMap[event.code] = 1;
-    }
+  _onKeyDown = (event) => {
+    this._keyMap[event.code] = 1;
+  };
 
-    _onKeyUp = (event) => {
-        this._keyMap[event.code] = 0;
-    }
+  _onKeyUp = (event) => {
+    this._keyMap[event.code] = 0;
+  };
 
-    GetKeyDown(code){
-        return this._keyMap[code] === undefined ? 0 : this._keyMap[code];
-    }
+  GetKeyDown(code) {
+    return this._keyMap[code] === undefined ? 0 : this._keyMap[code];
+  }
 
-    ClearEventListners(){
-        this.events.forEach(e=>{
-            e.element.removeEventListener(e.type, e.callback);
-        });
+  ClearEventListners() {
+    this.events.forEach((e) => {
+      e.element.removeEventListener(e.type, e.callback);
+    });
 
-        this.events = [];
-        this.AddKeyDownListner(this._onKeyDown);
-        this.AddKeyUpListner(this._onKeyUp);
-    }
+    this.events = [];
+    this.AddKeyDownListner(this._onKeyDown);
+    this.AddKeyUpListner(this._onKeyUp);
+  }
 }
 
-export class Factory implements WebpackLazyModule, Service<Input>{
-    async createService(services:LazyServices): Promise<Input> {
-        return new Input();
-    }
-
+export class Factory implements WebpackLazyModule, Service<Input> {
+  async createService(services: LazyServices): Promise<Input> {
+    return new Input();
+  }
 }

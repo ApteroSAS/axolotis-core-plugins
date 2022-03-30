@@ -1,10 +1,14 @@
 import * as THREE from "three";
 
-import {assetsLoader} from "@root/lib/modules/three/ThreeAssetsLoader";
-import Component from '@aptero/axolotis-player/build/types/modules/core/ecs/Component'
+import { assetsLoader } from "@root/lib/modules/three/ThreeAssetsLoader";
+import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
 import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
-import {FrameLoop, LazyServices, WorldService} from "@aptero/axolotis-player/build/types";
-import {Service} from "@aptero/axolotis-player/build/types/modules/core/service/LazyServices";
+import {
+  FrameLoop,
+  LazyServices,
+  WorldService,
+} from "@aptero/axolotis-player/build/types";
+import { Service } from "@aptero/axolotis-player/build/types/modules/core/service/LazyServices";
 
 declare let window: any;
 export function getGlobalRenderer() {
@@ -71,8 +75,8 @@ export class ThreeLib implements Component {
     }, true);
   }
 
-  async loadAssets(path:string) {
-    if(assetsLoader.assets[path]){
+  async loadAssets(path: string) {
+    if (assetsLoader.assets[path]) {
       return assetsLoader.assets[path];
     }
     /*
@@ -84,18 +88,20 @@ export class ThreeLib implements Component {
     oReq.open("GET", path);
     oReq.send();
     */
-    if(path.endsWith(".glb")){
-      const loader = await assetsLoader.getLoader("GLTFLoader",async ()=> {
-        const GLTFLoader:any = await import('three/examples/jsm/loaders/GLTFLoader');
+    if (path.endsWith(".glb")) {
+      const loader = await assetsLoader.getLoader("GLTFLoader", async () => {
+        const GLTFLoader: any = await import(
+          "three/examples/jsm/loaders/GLTFLoader"
+        );
         const gltfLoader = new GLTFLoader.GLTFLoader();
         return gltfLoader;
       });
       const result = await loader.loadAsync(path);
       assetsLoader.assets[path] = result;
     }
-    if(path.endsWith(".jpg")){
-      const loader = await assetsLoader.getLoader("TextureLoader",async ()=> {
-        const THREE:any = await import('three');
+    if (path.endsWith(".jpg")) {
+      const loader = await assetsLoader.getLoader("TextureLoader", async () => {
+        const THREE: any = await import("three");
         const texLoader = new THREE.TextureLoader();
         return texLoader;
       });
@@ -115,12 +121,11 @@ export class Factory implements WebpackLazyModule, Service<ThreeLib> {
 
   async createService(services: LazyServices): Promise<ThreeLib> {
     let frameLoop = await services.getService<FrameLoop>(
-      "@root/lib/modules/FrameLoop"
+      "@aptero/axolotis-player/modules/FrameLoop"
     );
     let worldService = await services.getService<WorldService>(
-      "@root/lib/modules/core/WorldService"
+      "@aptero/axolotis-player/modules/core/WorldService"
     );
     return new ThreeLib(frameLoop, worldService);
   }
-
 }
