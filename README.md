@@ -1,6 +1,6 @@
  <div align="center">
  <img align="center" width="230" src="https://cloudflare-ipfs.com/ipfs/bafkreifsgnkf7botlzpwcc2lv57ugwgf3xrmcjrez2kez4qd7o2cs3zjjm" />
-  <h2>Axolotis Player</h2>
+  <h2>Axolotis Core Plugins</h2>
   <blockquote>A player that helps to lazy load smart items in order to compose a metaverse space or 3D websites.</blockquote>
   <strong></strong>
 
