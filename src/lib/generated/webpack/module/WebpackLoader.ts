@@ -43,6 +43,20 @@ export function loadModules(): {
       const module = await import("@root/lib/modules/debug/PerformanceStats");
       return { module, classname: module.Factory.name };
     };
+  ret["@aptero/axolotis-core-plugins/modules/three/ThreeLib"] = async () => {
+    const module = await import("@root/lib/modules/three/ThreeLib");
+    return { module, classname: module.Factory.name };
+  };
+  ret["@aptero/axolotis-core-plugins/modules/portals/PortalsService"] =
+    async () => {
+      const module = await import("@root/lib/modules/portals/PortalsService");
+      return { module, classname: module.Factory.name };
+    };
+  ret["@aptero/axolotis-core-plugins/modules/portals/PortalLink"] =
+    async () => {
+      const module = await import("@root/lib/modules/portals/PortalLink");
+      return { module, classname: module.Factory.name };
+    };
   ret["@aptero/axolotis-core-plugins/modules/Sky"] = async () => {
     const module = await import("@root/lib/modules/Sky");
     return { module, classname: module.Factory.name };
@@ -52,9 +66,5 @@ export function loadModules(): {
       const module = await import("@root/lib/modules/spoke/SpokeRoomLoader");
       return { module, classname: module.Factory.name };
     };
-  ret["@aptero/axolotis-core-plugins/modules/three/ThreeLib"] = async () => {
-    const module = await import("@root/lib/modules/three/ThreeLib");
-    return { module, classname: module.Factory.name };
-  };
   return ret;
 }

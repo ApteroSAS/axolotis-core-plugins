@@ -5,13 +5,18 @@ const path = require("path");
 
 module.exports = {
   mode: "development",
-  devtool: 'cheap-module-source-map',
+  devtool: 'eval-source-map',
   output: {
-    filename: "assets/js/[name]-[chunkhash].js",
-    path: path.resolve(__dirname, "./dist/")
+    //filename: "/assets/js/[name]-[chunkhash].js",
+    filename: "[name].js",
+    publicPath: "/",
+    path: path.resolve(__dirname, "dist"),
   },
   entry: {
     index: path.join(__dirname, "./src/demo/page/Index.ts"),
+    basic: path.join(__dirname, "./src/demo/page/basic/Index.ts"),
+    portalA: path.join(__dirname, "./src/demo/page/portal/IndexA.ts"),
+    portalB: path.join(__dirname, "./src/demo/page/portal/IndexB.ts"),
   },
   optimization: {
     minimize: false,
@@ -45,10 +50,25 @@ module.exports = {
       filename: "index.html",
       template: path.join(__dirname, "./src/demo/page/index.html"),
       chunks: ["index"],
-      chunksSortMode: "manual",
-      minify: {
-        removeComments: true
-      }
+      chunksSortMode: "manual"
+    }),
+    new HTMLWebpackPlugin({
+      filename: "/basic/index.html",
+      template: path.join(__dirname, "./src/demo/page/basic/index.html"),
+      chunks: ["basic"],
+      chunksSortMode: "manual"
+    }),
+    new HTMLWebpackPlugin({
+      filename: "/portal/indexA.html",
+      template: path.join(__dirname, "./src/demo/page/portal/indexA.html"),
+      chunks: ["portalA"],
+      chunksSortMode: "manual"
+    }),
+    new HTMLWebpackPlugin({
+      filename: "/portal/indexB.html",
+      template: path.join(__dirname, "./src/demo/page/portal/indexB.html"),
+      chunks: ["portalB"],
+      chunksSortMode: "manual"
     }),
     new CopyWebpackPlugin({
       patterns: [

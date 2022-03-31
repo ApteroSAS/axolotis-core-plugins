@@ -152,6 +152,8 @@ export class Factory implements WebpackLazyModule, Service<PerformanceStats> {
   }
 }
 
+
+
 export class PerformanceStats implements Component {
   private rS: any;
   constructor(
@@ -159,6 +161,10 @@ export class PerformanceStats implements Component {
     frameLoop: FrameLoop,
     private worldService: WorldService
   ) {
+    if(window.perfStatSingletonPresent){
+      return;//Only one debug panel even if multiple world
+    }
+    window.perfStatSingletonPresent=true;
     console.warn(
       "MB MBytes of allocated memory. (Run Chrome with --enable-precise-memory-info) to have precise perf info"
     );

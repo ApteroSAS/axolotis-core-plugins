@@ -238,12 +238,11 @@ export default class NavMeshPlayer implements Component, Player {
     this.positionOutTmp.z = this.position.z + this.velocity.z;
 
     if (this.navMesh.isEnabled()) {
-      this.navMesh.findPositionOnNavMesh(
+      this.navMesh.findPOVPositionAboveNavMesh(
         this.position,
         this.positionOutTmp,
-        this.positionOutTmp2
+        this.positionOutTmp2,
       );
-      this.positionOutTmp2.y = this.positionOutTmp2.y + this.yOffset; //player height
     } else {
       this.positionOutTmp2.copy(this.positionOutTmp);
     }
