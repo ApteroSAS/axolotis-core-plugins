@@ -9,5 +9,5 @@
  *   LICENSE file in the root directory of this source tree.
  *
  */
-"use strict";(self.webpackChunkaxolotis_player=self.webpackChunkaxolotis_player||[]).push([[912],{912:function(e,r,t){t.r(r),t.d(r,{Factory:function(){return a},PlayerService:function(){return n}});class a{async createService(e){return new n}}class n{constructor(){var e,r,t;t=null,(r="player")in(e=this)?Object.defineProperty(e,r,{value:t,enumerable:!0,configurable:!0,writable:!0}):e[r]=t}getType(){return n.name}declarePlayer(e){if(this.player)throw new Error;this.player=e}getCurrentPlayer(){if(!this.player)throw new Error;return this.player}}}}]);
+"use strict";(self.webpackChunkaxolotis_core_plugins=self.webpackChunkaxolotis_core_plugins||[]).push([[912],{912:function(e,r,t){t.r(r),t.d(r,{Factory:function(){return n},PlayerService:function(){return a}});class n{async createService(e){return new a}}class a{constructor(){var e,r,t;t=null,(r="player")in(e=this)?Object.defineProperty(e,r,{value:t,enumerable:!0,configurable:!0,writable:!0}):e[r]=t}getType(){return a.name}declarePlayer(e){if(this.player)throw new Error;this.player=e}getCurrentPlayer(){if(!this.player)throw new Error;return this.player}}}}]);
 //# sourceMappingURL=912.js.map
