@@ -16,7 +16,10 @@ export declare class PortalsService implements Component {
     i: number;
     render(): void;
     getType(): string;
-    notifyInitialWorld(url: string, world: WorldEntity): void;
+    cleanUpRoomUrl(roomUrl: string): string;
+    notifylWorld(url: string, world: WorldEntity): void;
+    getWorld(url: string): any;
+    worldExist(url: string): boolean;
     portalsLoops: ((delta: any) => void)[];
     portalsRenderLoops: (() => void)[];
     addPortalLoop(callback: (delta: any) => void): void;

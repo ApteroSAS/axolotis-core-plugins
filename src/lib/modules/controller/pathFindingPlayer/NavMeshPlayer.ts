@@ -241,7 +241,7 @@ export default class NavMeshPlayer implements Component, Player {
       this.navMesh.findPOVPositionAboveNavMesh(
         this.position,
         this.positionOutTmp,
-        this.positionOutTmp2,
+        this.positionOutTmp2
       );
     } else {
       this.positionOutTmp2.copy(this.positionOutTmp);

@@ -46,9 +46,9 @@ export class NavMeshPathfinder {
     // We should find way to allow leaning over the edge of a balcony and maybe disallow putting
     // your head through a wall.
     return (
-        startPOVPosition:THREE.Vector3,
-        desiredPOVPosition:THREE.Vector3,
-        outPOVPosition:THREE.Vector3
+      startPOVPosition: THREE.Vector3,
+      desiredPOVPosition: THREE.Vector3,
+      outPOVPosition: THREE.Vector3
     ) => {
       //const playerHeight = getCurrentPlayerHeight(true);
       const playerHeight = 2;
@@ -57,9 +57,9 @@ export class NavMeshPathfinder {
       desiredFeetPosition.copy(desiredPOVPosition);
       desiredFeetPosition.y -= playerHeight;
       this.findPositionOnNavMesh(
-          startingFeetPosition,
-          desiredFeetPosition,
-          outPOVPosition
+        startingFeetPosition,
+        desiredFeetPosition,
+        outPOVPosition
       );
       outPOVPosition.y += playerHeight;
       return outPOVPosition;
@@ -67,21 +67,23 @@ export class NavMeshPathfinder {
   })();
 
   findPositionOnNavMesh(
-      start: Vector3,
-      end: Vector3,
-      outPos: Vector3,
-      shouldRecomputeGroupAndNode: boolean = false
+    start: Vector3,
+    end: Vector3,
+    outPos: Vector3,
+    shouldRecomputeGroupAndNode: boolean = false
   ) {
     const pathfinder = this.pathfinder;
     if (!(this.zone in pathfinder.zones)) return;
     this.navGroup =
-        shouldRecomputeGroupAndNode || this.navGroup === null
-            ? pathfinder.getGroup(this.zone, end, true, true)
-            : this.navGroup;
+      shouldRecomputeGroupAndNode || this.navGroup === null
+        ? pathfinder.getGroup(this.zone, end, true, true)
+        : this.navGroup;
     this.navNode =
-        shouldRecomputeGroupAndNode || this.navNode === null || this.navNode === undefined
-            ? this.getClosestNode(end)
-            : this.navNode;
+      shouldRecomputeGroupAndNode ||
+      this.navNode === null ||
+      this.navNode === undefined
+        ? this.getClosestNode(end)
+        : this.navNode;
     if (this.navNode === null || this.navNode === undefined) {
       // this.navNode can be null if it has never been set or if getClosestNode fails,
       // and it can be undefined if clampStep fails, so we have to check both. We do not
@@ -89,7 +91,14 @@ export class NavMeshPathfinder {
       // and 0 is falsey.
       outPos.copy(end);
     } else {
-      this.navNode = pathfinder.clampStep(start, end, this.navNode, this.zone, this.navGroup, outPos);
+      this.navNode = pathfinder.clampStep(
+        start,
+        end,
+        this.navNode,
+        this.zone,
+        this.navGroup,
+        outPos
+      );
     }
     return outPos;
   }
