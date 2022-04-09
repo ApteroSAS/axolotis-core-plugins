@@ -101,7 +101,10 @@ export class ThreeLib implements Component {
     }
     if (path.endsWith(".jpg")) {
       const loader = await assetsLoader.getLoader("TextureLoader", async () => {
-        const THREE: any = await import("three");
+        /*const THREE: any = await import(
+          /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/three"  /
+          "three"
+        );*/
         const texLoader = new THREE.TextureLoader();
         return texLoader;
       });

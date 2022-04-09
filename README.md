@@ -120,4 +120,6 @@ constructor() {}
 yarn run start
 
 You can find the demo file in the src/demo folder
+
+https://chrisbateman.github.io/webpack-visualizer/
 ```

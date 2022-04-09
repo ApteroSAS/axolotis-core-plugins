@@ -101,11 +101,21 @@ function generateWebpackModules(
     }
 
     {
+        //https://medium.com/front-end-weekly/webpack-and-dynamic-imports-doing-it-right-72549ff49234
         let imortsLines = "";
         for (const importLine in dict) {
             let className = "Factory";
-            imortsLines += "  ret[\""+importLine.replace(packageprefix,packagename)+"\"] = async () => {\n" +
-                "    const module = await import(\""+importLine+"\");\n" +
+            let modifiedImport = importLine.replace(packageprefix,packagename);
+            imortsLines += "  ret[\""+modifiedImport+"\"] = async () => {\n" +
+                "    const module = await import(" +
+                " /* " +
+                " webpackPrefetch: 0" + // 0 is same as true
+                ", " +
+                " webpackMode: 'lazy'" +
+                ", " +
+                " webpackChunkName: \""+modifiedImport+"\" " +
+                " */" +
+                " \""+importLine+"\");\n" +
                 "    return {module, classname: module.Factory.name}\n" +
                 "  };\n";
         }

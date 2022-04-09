@@ -1,14 +1,16 @@
 {
-  "name": "@aptero/axolotis-core-plugin",
+  "name": "@aptero/axolotis-core-plugins",
   "version": "1.0.0",
   "description": "Axolotis - Core Plugins",
   "main": "build/index.js",
   "types": "build/types/index.d.ts",
   "scripts": {
     "pre-build": "node ./generator/generate-webpack-module.js",
+    "only-build": "webpack && tsc && ttsc --emitDeclarationOnly",
     "start": "webpack serve --config webpack.config.demo.js",
     "build": "cross-env npm run pre-build && webpack && tsc",
     "build:demo": "webpack --config webpack.config.demo.js",
+    "dev-watch": "tsc-watch --onSuccess \"yarn run only-build\"",
     "test": "jest --silent",
     "coverage": "npm run test -- --coverage",
     "prepare": "npm run build",
@@ -56,10 +58,11 @@
     "prettier-webpack-plugin": "^1.2.0",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.3.1",
-    "three": "^0.135.0",
     "typescript": "^4.6.2",
     "url-loader": "^4.1.1",
     "webpack": "^5.70.0",
+    "tsc-watch": "^4.6.2",
+    "ttypescript": "^1.5.13",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "4.7.4"
   },
@@ -67,6 +70,7 @@
     "@aptero/axolotis-player": "git+https://github.com/ApteroSAS/axolotis-player.git#3a870a0e8abd1bec1151900ccf962860b525d52c",
     "eventemitter3": "^4.0.7",
     "phoenix": "^1.6.6",
+    "three": "^0.135.0",
     "three-pathfinding": "^1.1.0",
     "tsutils": "^3.21.0"
   },

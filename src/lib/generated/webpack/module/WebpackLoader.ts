@@ -9,7 +9,7 @@ export function loadModules(): {
     "@aptero/axolotis-core-plugins/modules/controller/cameraController/OrbitController"
   ] = async () => {
     const module = await import(
-      "@root/lib/modules/controller/cameraController/OrbitController"
+      /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/modules/controller/cameraController/OrbitController"  */ "@root/lib/modules/controller/cameraController/OrbitController"
     );
     return { module, classname: module.Factory.name };
   };
@@ -17,7 +17,7 @@ export function loadModules(): {
     "@aptero/axolotis-core-plugins/modules/controller/pathFindingPlayer/Input"
   ] = async () => {
     const module = await import(
-      "@root/lib/modules/controller/pathFindingPlayer/Input"
+      /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/modules/controller/pathFindingPlayer/Input"  */ "@root/lib/modules/controller/pathFindingPlayer/Input"
     );
     return { module, classname: module.Factory.name };
   };
@@ -25,45 +25,61 @@ export function loadModules(): {
     "@aptero/axolotis-core-plugins/modules/controller/pathFindingPlayer/NavMeshPlayer"
   ] = async () => {
     const module = await import(
-      "@root/lib/modules/controller/pathFindingPlayer/NavMeshPlayer"
+      /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/modules/controller/pathFindingPlayer/NavMeshPlayer"  */ "@root/lib/modules/controller/pathFindingPlayer/NavMeshPlayer"
     );
     return { module, classname: module.Factory.name };
   };
   ret["@aptero/axolotis-core-plugins/modules/controller/PlayerService"] =
     async () => {
-      const module = await import("@root/lib/modules/controller/PlayerService");
+      const module = await import(
+        /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/modules/controller/PlayerService"  */ "@root/lib/modules/controller/PlayerService"
+      );
       return { module, classname: module.Factory.name };
     };
   ret["@aptero/axolotis-core-plugins/modules/debug/DebugBtn"] = async () => {
-    const module = await import("@root/lib/modules/debug/DebugBtn");
+    const module = await import(
+      /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/modules/debug/DebugBtn"  */ "@root/lib/modules/debug/DebugBtn"
+    );
     return { module, classname: module.Factory.name };
   };
   ret["@aptero/axolotis-core-plugins/modules/debug/PerformanceStats"] =
     async () => {
-      const module = await import("@root/lib/modules/debug/PerformanceStats");
+      const module = await import(
+        /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/modules/debug/PerformanceStats"  */ "@root/lib/modules/debug/PerformanceStats"
+      );
       return { module, classname: module.Factory.name };
     };
   ret["@aptero/axolotis-core-plugins/modules/three/ThreeLib"] = async () => {
-    const module = await import("@root/lib/modules/three/ThreeLib");
+    const module = await import(
+      /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/modules/three/ThreeLib"  */ "@root/lib/modules/three/ThreeLib"
+    );
     return { module, classname: module.Factory.name };
   };
   ret["@aptero/axolotis-core-plugins/modules/portals/PortalsService"] =
     async () => {
-      const module = await import("@root/lib/modules/portals/PortalsService");
+      const module = await import(
+        /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/modules/portals/PortalsService"  */ "@root/lib/modules/portals/PortalsService"
+      );
       return { module, classname: module.Factory.name };
     };
   ret["@aptero/axolotis-core-plugins/modules/portals/PortalLink"] =
     async () => {
-      const module = await import("@root/lib/modules/portals/PortalLink");
+      const module = await import(
+        /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/modules/portals/PortalLink"  */ "@root/lib/modules/portals/PortalLink"
+      );
       return { module, classname: module.Factory.name };
     };
   ret["@aptero/axolotis-core-plugins/modules/Sky"] = async () => {
-    const module = await import("@root/lib/modules/Sky");
+    const module = await import(
+      /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/modules/Sky"  */ "@root/lib/modules/Sky"
+    );
     return { module, classname: module.Factory.name };
   };
   ret["@aptero/axolotis-core-plugins/modules/spoke/SpokeRoomLoader"] =
     async () => {
-      const module = await import("@root/lib/modules/spoke/SpokeRoomLoader");
+      const module = await import(
+        /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/modules/spoke/SpokeRoomLoader"  */ "@root/lib/modules/spoke/SpokeRoomLoader"
+      );
       return { module, classname: module.Factory.name };
     };
   return ret;
