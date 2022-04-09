@@ -9,6 +9,7 @@ import {
   WorldService,
 } from "@aptero/axolotis-player/build/types";
 import { Service } from "@aptero/axolotis-player/build/types/modules/core/service/LazyServices";
+import { GLTFLoader } from "@root/lib/modules/three/addon/jsm/loader/GLFTLoader";
 
 declare let window: any;
 export function getGlobalRenderer() {
@@ -90,10 +91,13 @@ export class ThreeLib implements Component {
     */
     if (path.endsWith(".glb")) {
       const loader = await assetsLoader.getLoader("GLTFLoader", async () => {
-        const GLTFLoader: any = await import(
+        /*const module: any = await import(
+          /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/three/examples/jsm/loaders/GLTFLoader"  /
           "three/examples/jsm/loaders/GLTFLoader"
         );
-        const gltfLoader = new GLTFLoader.GLTFLoader();
+        const gltfLoader = new module.GLTFLoader();
+         */
+        const gltfLoader = new GLTFLoader(new THREE.LoadingManager());
         return gltfLoader;
       });
       const result = await loader.loadAsync(path);

@@ -1,6 +1,5 @@
 import { ServiceEntity } from "@aptero/axolotis-player";
 import { CodeLoaderComponent } from "@aptero/axolotis-player/build/types/modules/core/loader/CodeLoaderComponent";
-import * as THREE from "three";
 import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
 import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
@@ -10,6 +9,7 @@ import { WorldService } from "@aptero/axolotis-player/build/types/modules/core/W
 import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
 import { initHtmlFromUrl } from "@aptero/axolotis-player";
+import {Box3, CircleGeometry, DoubleSide, Mesh, MeshBasicMaterial, PerspectiveCamera, Plane, Vector3} from "three";
 
 //https://barthaweb.com/2020/09/webgl-portal/
 //https://github.com/stemkoski/AR-Examples/blob/master/portal-view.html
@@ -54,10 +54,10 @@ export class Factory
       playerService,
       worldService,
       {
-        position: new THREE.Vector3(config.in?.x, config.in?.y, config.in?.z),
+        position: new Vector3(config.in?.x, config.in?.y, config.in?.z),
       },
       {
-        position: new THREE.Vector3(
+        position: new Vector3(
           config.out?.x,
           config.out?.y,
           config.out?.z
@@ -138,7 +138,7 @@ export class PortalLink implements Component {
     private inPosition: { position: THREE.Vector3; rotation?: THREE.Euler },
     private outPosition: { position: THREE.Vector3; rotation?: THREE.Euler }
   ) {
-    this.otherCamera = new THREE.PerspectiveCamera(
+    this.otherCamera = new PerspectiveCamera(
       three.camera.fov,
       window.innerWidth / window.innerHeight,
       this.three.camera.near,
@@ -147,14 +147,14 @@ export class PortalLink implements Component {
     three.scene.add(this.otherCamera);
 
     // Portal A (Portal View) ================================
-    let defaultMaterial = new THREE.MeshBasicMaterial({
+    let defaultMaterial = new MeshBasicMaterial({
       color: 0xff0000,
-      side: THREE.DoubleSide,
+      side: DoubleSide,
       transparent: true,
     });
 
-    this.portalA = new THREE.Mesh(
-      new THREE.CircleGeometry(1, 64),
+    this.portalA = new Mesh(
+      new CircleGeometry(1, 64),
       //new THREE.BoxGeometry( 1, 1, 1 ),
       defaultMaterial.clone()
     );
@@ -166,30 +166,30 @@ export class PortalLink implements Component {
     this.portalA.layers.set(invisibleLayer); //invisible layer storage
     three.scene.add(this.portalA);
     this.portalA.geometry.computeBoundingBox();
-    this.portalPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1)); //TODO remember to move and oriente the plan to follow the portal
+    this.portalPlane = new Plane(new Vector3(0, 0, 1)); //TODO remember to move and oriente the plan to follow the portal
     //const helper = new THREE.PlaneHelper( this.portalPlane, 1, 0xffff00 );
     //this.three.scene.add( helper );
-    this.boundingBox = new THREE.Box3();
+    this.boundingBox = new Box3();
     this.boundingBox.copy(
-      this.portalA.geometry.boundingBox || new THREE.Box3()
+      this.portalA.geometry.boundingBox || new Box3()
     );
-    let minBox = new THREE.Box3(
-      new THREE.Vector3(-0.2, -0.2, -0.2),
-      new THREE.Vector3(0.2, 0.2, 0.2)
+    let minBox = new Box3(
+      new Vector3(-0.2, -0.2, -0.2),
+      new Vector3(0.2, 0.2, 0.2)
     );
     this.boundingBox = this.boundingBox.union(minBox);
     //const helper = new THREE.Box3Helper( this.boundingBox,0xffff00 as any );
     //this.three.scene.add( helper );
     // Portal B (Point of View position and rotation) ================================
     // material for portals and blockers
-    let defaultMaterial2 = new THREE.MeshBasicMaterial({
+    let defaultMaterial2 = new MeshBasicMaterial({
       color: 0xffffff,
-      side: THREE.DoubleSide,
+      side: DoubleSide,
       transparent: true,
     });
 
-    this.portalB = new THREE.Mesh(
-      new THREE.CircleGeometry(1, 64),
+    this.portalB = new Mesh(
+      new CircleGeometry(1, 64),
       defaultMaterial2.clone()
     );
     this.portalB.material.opacity = 0;
@@ -200,10 +200,10 @@ export class PortalLink implements Component {
     three.scene.add(this.portalB);
   }
 
-  tmpPos: THREE.Vector3 = new THREE.Vector3();
-  tmpDir: THREE.Vector3 = new THREE.Vector3();
-  tmpBox: THREE.Box3 = new THREE.Box3();
-  tmpPlane: THREE.Plane = new THREE.Plane();
+  tmpPos: THREE.Vector3 = new Vector3();
+  tmpDir: THREE.Vector3 = new Vector3();
+  tmpBox: THREE.Box3 = new Box3();
+  tmpPlane: THREE.Plane = new Plane();
   collidingLastFrame: boolean = false;
   lastDistance: number = 0;
   gracePeriode = 0; //in FPS
@@ -318,20 +318,20 @@ export class PortalLink implements Component {
     // default normal of a plane is 0,0,1. apply mesh rotation to it.
 
     // determine which side of the plane camera is on, for clipping plane orientation.
-    let portalToCamera = new THREE.Vector3().subVectors(
+    let portalToCamera = new Vector3().subVectors(
       this.three.camera.position.clone(),
       this.portalA.position.clone()
     ); //  applyQuaternion( mainMover.quaternion );
-    let normalPortal = new THREE.Vector3(0, 0, 1).applyQuaternion(
+    let normalPortal = new Vector3(0, 0, 1).applyQuaternion(
       this.portalA.quaternion
     );
     let clipSide = -Math.sign(portalToCamera.dot(normalPortal));
 
-    let clipNormal = new THREE.Vector3(0, 0, clipSide).applyQuaternion(
+    let clipNormal = new Vector3(0, 0, clipSide).applyQuaternion(
       this.portalB.quaternion
     );
     let clipPoint = this.portalB.position;
-    let clipPlane = new THREE.Plane().setFromNormalAndCoplanarPoint(
+    let clipPlane = new Plane().setFromNormalAndCoplanarPoint(
       clipNormal,
       clipPoint
     );
