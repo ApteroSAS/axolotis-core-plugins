@@ -144,7 +144,11 @@ export class Factory implements WebpackLazyModule, Service<ThreeLib> {
     let worldService = await services.getService<WorldService>(
       "@aptero/axolotis-player/modules/core/WorldService"
     );
-    const threeLib = new ThreeLib(frameLoop, worldService, await asyncLoadThree());
+    const threeLib = new ThreeLib(
+      frameLoop,
+      worldService,
+      await asyncLoadThree()
+    );
     await threeLib.init();
     return threeLib;
   }

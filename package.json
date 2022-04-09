@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Axolotis - Core Plugins",
   "main": "build/index.js",
+  "exports": {
+    ".": "build/index.js",
+    "./*": "./build/@aptero/axolotis-core-plugins/*"
+  },
   "types": "build/types/index.d.ts",
   "scripts": {
     "pre-build": "node ./generator/generate-webpack-module.js",
