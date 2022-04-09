@@ -9,7 +9,16 @@ import { WorldService } from "@aptero/axolotis-player/build/types/modules/core/W
 import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
 import { initHtmlFromUrl } from "@aptero/axolotis-player";
-import {Box3, CircleGeometry, DoubleSide, Mesh, MeshBasicMaterial, PerspectiveCamera, Plane, Vector3} from "three";
+import {
+  Box3,
+  CircleGeometry,
+  DoubleSide,
+  Mesh,
+  MeshBasicMaterial,
+  PerspectiveCamera,
+  Plane,
+  Vector3,
+} from "three";
 
 //https://barthaweb.com/2020/09/webgl-portal/
 //https://github.com/stemkoski/AR-Examples/blob/master/portal-view.html
@@ -57,11 +66,7 @@ export class Factory
         position: new Vector3(config.in?.x, config.in?.y, config.in?.z),
       },
       {
-        position: new Vector3(
-          config.out?.x,
-          config.out?.y,
-          config.out?.z
-        ),
+        position: new Vector3(config.out?.x, config.out?.y, config.out?.z),
       }
     );
     codeLoader.awaitInitialLoading().then(async (value) => {
@@ -170,9 +175,7 @@ export class PortalLink implements Component {
     //const helper = new THREE.PlaneHelper( this.portalPlane, 1, 0xffff00 );
     //this.three.scene.add( helper );
     this.boundingBox = new Box3();
-    this.boundingBox.copy(
-      this.portalA.geometry.boundingBox || new Box3()
-    );
+    this.boundingBox.copy(this.portalA.geometry.boundingBox || new Box3());
     let minBox = new Box3(
       new Vector3(-0.2, -0.2, -0.2),
       new Vector3(0.2, 0.2, 0.2)

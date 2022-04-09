@@ -31,6 +31,7 @@ module.exports = {
     index: path.join(__dirname, './src/lib/index.ts'),
   },
   output: {
+    chunkFilename: '[name].[chunkhash].js',
     filename: '[name].js',
     path: path.resolve(__dirname, 'build'),
     library: "axolotis-core-plugins",

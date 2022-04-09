@@ -7,7 +7,7 @@ module.exports = {
   mode: "development",
   devtool: 'eval-source-map',
   output: {
-    //filename: "/assets/js/[name]-[chunkhash].js",
+    chunkFilename: '[name].[chunkhash].js',
     filename: "[name].js",
     publicPath: "/",
     path: path.resolve(__dirname, "dist"),

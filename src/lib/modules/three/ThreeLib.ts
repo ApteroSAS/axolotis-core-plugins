@@ -1,5 +1,3 @@
-import * as THREE from "three";
-
 import { assetsLoader } from "@root/lib/modules/three/ThreeAssetsLoader";
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
 import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
@@ -9,11 +7,22 @@ import {
   WorldService,
 } from "@aptero/axolotis-player/build/types";
 import { Service } from "@aptero/axolotis-player/build/types/modules/core/service/LazyServices";
-import { GLTFLoader } from "@root/lib/modules/three/addon/jsm/loader/GLFTLoader";
+import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
 
 declare let window: any;
-export function getGlobalRenderer() {
+
+export async function asyncLoadThree() {
+  //this async import has the only usage of renamin any import to three (using webpack chunk)
+  const THREE: any = await import(
+    /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/three"  */
+    "three"
+  );
+  return THREE;
+}
+
+export async function getGlobalRenderer() {
   if (!window.axolotis?.renderer) {
+    const THREE = await asyncLoadThree();
     let renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -32,16 +41,23 @@ export function getGlobalRenderer() {
 }
 
 export class ThreeLib implements Component {
-  renderer: THREE.WebGLRenderer;
-  scene: THREE.Scene;
-  camera: THREE.PerspectiveCamera;
+  renderer: WebGLRenderer;
+  scene: Scene;
+  camera: PerspectiveCamera;
   preRenderPass: (() => void)[] = [];
-  constructor(frameLoop: FrameLoop, worldService: WorldService) {
-    this.scene = new THREE.Scene();
 
-    this.renderer = getGlobalRenderer();
+  constructor(
+    private frameLoop: FrameLoop,
+    private worldService: WorldService,
+    private THREE
+  ) {}
 
-    this.camera = new THREE.PerspectiveCamera(
+  async init() {
+    this.scene = new this.THREE.Scene();
+
+    this.renderer = await getGlobalRenderer();
+
+    this.camera = new this.THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
       0.001,
@@ -66,12 +82,12 @@ export class ThreeLib implements Component {
       render();
     };
 
-    worldService.addOnWorldChangeCallback(() => {
+    this.worldService.addOnWorldChangeCallback(() => {
       window.removeEventListener("resize", onWindowResize);
-      frameLoop.removeLoop(ThreeLib.name);
-      if (worldService.isActiveWorld()) {
+      this.frameLoop.removeLoop(ThreeLib.name);
+      if (this.worldService.isActiveWorld()) {
         window.addEventListener("resize", onWindowResize, false);
-        frameLoop.addLoop(ThreeLib.name, render);
+        this.frameLoop.addLoop(ThreeLib.name, render);
       }
     }, true);
   }
@@ -91,13 +107,12 @@ export class ThreeLib implements Component {
     */
     if (path.endsWith(".glb")) {
       const loader = await assetsLoader.getLoader("GLTFLoader", async () => {
-        /*const module: any = await import(
-          /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/three/examples/jsm/loaders/GLTFLoader"  /
+        const module: any = await import(
+          /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/three/examples/jsm/loaders/GLTFLoader"  */
           "three/examples/jsm/loaders/GLTFLoader"
         );
         const gltfLoader = new module.GLTFLoader();
-         */
-        const gltfLoader = new GLTFLoader(new THREE.LoadingManager());
+        //const gltfLoader = new GLTFLoader(new this.THREE.LoadingManager());
         return gltfLoader;
       });
       const result = await loader.loadAsync(path);
@@ -105,11 +120,7 @@ export class ThreeLib implements Component {
     }
     if (path.endsWith(".jpg")) {
       const loader = await assetsLoader.getLoader("TextureLoader", async () => {
-        /*const THREE: any = await import(
-          /*  webpackPrefetch: 0,  webpackMode: 'lazy',  webpackChunkName: "@aptero/axolotis-core-plugins/three"  /
-          "three"
-        );*/
-        const texLoader = new THREE.TextureLoader();
+        const texLoader = new this.THREE.TextureLoader();
         return texLoader;
       });
       const result = await loader.loadAsync(path);
@@ -133,6 +144,8 @@ export class Factory implements WebpackLazyModule, Service<ThreeLib> {
     let worldService = await services.getService<WorldService>(
       "@aptero/axolotis-player/modules/core/WorldService"
     );
-    return new ThreeLib(frameLoop, worldService);
+    const threeLib = new ThreeLib(frameLoop, worldService, await asyncLoadThree());
+    await threeLib.init();
+    return threeLib;
   }
 }

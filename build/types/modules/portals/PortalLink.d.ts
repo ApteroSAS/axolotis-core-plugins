@@ -1,4 +1,3 @@
-import * as THREE from "three";
 import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
 import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
