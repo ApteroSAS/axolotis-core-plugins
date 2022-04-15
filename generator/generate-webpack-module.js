@@ -5,9 +5,9 @@ var fs = require("fs");
 var path = require("path");
 
 const genPath = "./src/lib/generated/webpack/module/";
-const scope = "./src/lib/";
-const packagename = "@aptero/axolotis-core-plugins";
-const packageprefix = "@root/lib";
+const scope = "./src/lib/modules/";
+const packagename = "@aptero/axolotis-core-plugins/";
+const packageprefix = "@root/lib/modules/";
 
 let webpackInterfaceName = ["WebpackAsyncModuleFactory", "WebpackLazyModule"];
 var walk = function(dir, done) {
@@ -109,8 +109,8 @@ function generateWebpackModules(
             imortsLines += "  ret[\""+modifiedImport+"\"] = async () => {\n" +
                 "    const module = await import(" +
                 " /* " +
-                " webpackPrefetch: 0" + // 0 is same as true
-                ", " +
+                //" webpackPrefetch: 0" + // 0 is same as true //user should decide for prefetch
+                //", " +
                 " webpackMode: 'lazy'" +
                 ", " +
                 " webpackChunkName: \""+modifiedImport+"\" " +

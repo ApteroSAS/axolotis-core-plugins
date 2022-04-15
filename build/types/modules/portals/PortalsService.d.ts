@@ -1,10 +1,11 @@
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
 import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
-import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
-import { LazyServices, Service } from "@aptero/axolotis-player/build/types/modules/core/service/LazyServices";
-import { WorldService } from "@aptero/axolotis-player/build/types/modules/core/WorldService";
-import { FrameLoop } from "@aptero/axolotis-player/build/types/modules/FrameLoop";
 import { ThreeLib } from "../three/ThreeLib";
+import { Service } from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
+import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
+import { LazyServices } from "@aptero/axolotis-player";
+import { WorldService } from "@root/lib/modules/worlds/WorldService";
+import { FrameLoop } from "@root/lib/modules/frame/FrameLoop";
 export declare class Factory implements WebpackLazyModule, Service<PortalsService> {
     constructor();
     createService(services: LazyServices): Promise<PortalsService>;

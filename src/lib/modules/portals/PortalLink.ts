@@ -1,11 +1,7 @@
-import { ServiceEntity } from "@aptero/axolotis-player";
-import { CodeLoaderComponent } from "@aptero/axolotis-player/build/types/modules/core/loader/CodeLoaderComponent";
-import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
-import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
+import { WorldEntity } from "@aptero/axolotis-player";
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
 import { PortalsService } from "./PortalsService";
 import { PlayerService } from "../controller/PlayerService";
-import { WorldService } from "@aptero/axolotis-player/build/types/modules/core/WorldService";
 import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
 import { initHtmlFromUrl } from "@aptero/axolotis-player";
@@ -19,6 +15,13 @@ import {
   Plane,
   Vector3,
 } from "three";
+import {
+  CODE_LOADER_MODULE_NAME,
+  InitialComponentLoader,
+} from "@aptero/axolotis-player";
+import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
+import { WorldService } from "@root/lib/modules/worlds/WorldService";
+import { Services } from "@aptero/axolotis-player";
 
 //https://barthaweb.com/2020/09/webgl-portal/
 //https://github.com/stemkoski/AR-Examples/blob/master/portal-view.html
@@ -39,23 +42,21 @@ export class Factory
       out: { x: number; y: number; z: number };
     }
   ): Promise<PortalLink> {
-    let services = world.getFirstComponentByType<ServiceEntity>(
-      ServiceEntity.name
-    );
-    let codeLoader = await services.getService<CodeLoaderComponent>(
-      "@aptero/axolotis-player/modules/core/loader/CodeLoaderService"
+    let services = world.getFirstComponentByType<Services>(Services.name);
+    let codeLoader = await services.getService<InitialComponentLoader>(
+      CODE_LOADER_MODULE_NAME
     );
     let three = await services.getService<ThreeLib>(
-      "@aptero/axolotis-core-plugins/modules/three/ThreeLib"
+      "@aptero/axolotis-core-plugins/three/ThreeLib"
     );
     let service = await services.getService<PortalsService>(
-      "@aptero/axolotis-core-plugins/modules/portals/PortalsService"
+      "@aptero/axolotis-core-plugins/portals/PortalsService"
     );
     let playerService = await services.getService<PlayerService>(
-      "@aptero/axolotis-core-plugins/modules/controller/PlayerService"
+      "@aptero/axolotis-core-plugins/controller/PlayerService"
     );
     let worldService = await services.getService<WorldService>(
-      "@aptero/axolotis-player/modules/core/WorldService"
+      "@aptero/axolotis-core-plugins/worlds/WorldService"
     );
     let portalLink = new PortalLink(
       service,
@@ -100,16 +101,18 @@ export class PortalLink implements Component {
 
   async setTargetWorld(world: WorldEntity) {
     this.targetWorld = world;
-    let targetWorldService =
-      await this.targetWorld.getFirstComponentByType<ServiceEntity>(
-        ServiceEntity.name
-      );
+    if (!this.targetWorld) {
+      throw new Error();
+    }
+    let targetWorldService = await (
+      this.targetWorld as WorldEntity
+    ).getFirstComponentByType<Services>(Services.name);
     this.targetThreeLib = await targetWorldService.getService<ThreeLib>(
-      "@aptero/axolotis-core-plugins/modules/three/ThreeLib"
+      "@aptero/axolotis-core-plugins/three/ThreeLib"
     );
     this.targetPlayerService =
       await targetWorldService.getService<PlayerService>(
-        "@aptero/axolotis-core-plugins/modules/controller/PlayerService"
+        "@aptero/axolotis-core-plugins/controller/PlayerService"
       );
     let otherPortals: PortalLink[] = await world.getComponentByType<PortalLink>(
       PortalLink.name

@@ -1,9 +1,9 @@
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
-import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
 import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
 import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
 import SceneLoader from "@root/lib/modules/spoke/SceneLoader";
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
+import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
 export declare class SpokeRoomLoader implements Component {
     private threeLib;
     sceneLoader: SceneLoader | null;

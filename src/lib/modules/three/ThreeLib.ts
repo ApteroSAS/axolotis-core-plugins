@@ -1,13 +1,11 @@
 import { assetsLoader } from "@root/lib/modules/three/ThreeAssetsLoader";
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
-import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
-import {
-  FrameLoop,
-  LazyServices,
-  WorldService,
-} from "@aptero/axolotis-player/build/types";
-import { Service } from "@aptero/axolotis-player/build/types/modules/core/service/LazyServices";
 import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import { FrameLoop } from "@root/lib/modules/frame/FrameLoop";
+//import { WorldService } from "@root/lib/modules/worlds/WorldService";
+import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
+import { Service } from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
+import { LazyServices } from "@aptero/axolotis-player/build/types";
 
 declare let window: any;
 
@@ -48,7 +46,7 @@ export class ThreeLib implements Component {
 
   constructor(
     private frameLoop: FrameLoop,
-    private worldService: WorldService,
+    //private worldService: WorldService,
     private THREE
   ) {}
 
@@ -82,6 +80,7 @@ export class ThreeLib implements Component {
       render();
     };
 
+    /*
     this.worldService.addOnWorldChangeCallback(() => {
       window.removeEventListener("resize", onWindowResize);
       this.frameLoop.removeLoop(ThreeLib.name);
@@ -90,6 +89,10 @@ export class ThreeLib implements Component {
         this.frameLoop.addLoop(ThreeLib.name, render);
       }
     }, true);
+    */
+    //setup three loop
+    window.addEventListener("resize", onWindowResize, false);
+    this.frameLoop.addLoop(ThreeLib.name, render);
   }
 
   async loadAssets(path: string) {
@@ -139,14 +142,14 @@ export class Factory implements WebpackLazyModule, Service<ThreeLib> {
 
   async createService(services: LazyServices): Promise<ThreeLib> {
     let frameLoop = await services.getService<FrameLoop>(
-      "@aptero/axolotis-player/modules/FrameLoop"
+      "@aptero/axolotis-core-plugins/frame/FrameLoop"
     );
-    let worldService = await services.getService<WorldService>(
-      "@aptero/axolotis-player/modules/core/WorldService"
-    );
+    /*let worldService = await services.getService<WorldService>(
+      "@aptero/axolotis-core-plugins/worlds/WorldService"
+    );*/
     const threeLib = new ThreeLib(
       frameLoop,
-      worldService,
+      //worldService,
       await asyncLoadThree()
     );
     await threeLib.init();

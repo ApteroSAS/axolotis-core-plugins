@@ -1,11 +1,11 @@
 import * as THREE from "three";
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
-import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
 import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
 import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
 import { Input } from "@root/lib/modules/controller/pathFindingPlayer/Input";
 import { Player, PlayerService } from "@root/lib/modules/controller/PlayerService";
+import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
 export declare class Factory implements WebpackLazyModule, ComponentFactory<NavMeshPlayer> {
     createComponent(world: WorldEntity, config: any): Promise<NavMeshPlayer>;
 }

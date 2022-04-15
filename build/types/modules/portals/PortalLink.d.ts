@@ -1,11 +1,11 @@
-import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
-import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
+import { WorldEntity } from "@aptero/axolotis-player";
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
 import { PortalsService } from "./PortalsService";
 import { PlayerService } from "../controller/PlayerService";
-import { WorldService } from "@aptero/axolotis-player/build/types/modules/core/WorldService";
 import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
+import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
+import { WorldService } from "@root/lib/modules/worlds/WorldService";
 export declare class Factory implements WebpackLazyModule, ComponentFactory<PortalLink> {
     createComponent(world: WorldEntity, config: {
         url: string;

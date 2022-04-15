@@ -1,23 +1,23 @@
-import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
-import {
-  LazyServices,
-  Service,
-} from "@aptero/axolotis-player/build/types/modules/core/service/LazyServices";
-import { FrameLoop } from "@aptero/axolotis-player/build/types/modules/FrameLoop";
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
 import { PerformanceStats } from "@root/lib/modules/debug/PerformanceStats";
+import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
+import { LazyServices, WorldEntity } from "@aptero/axolotis-player";
+import { FrameLoop } from "@root/lib/modules/frame/FrameLoop";
+import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
+import { Services } from "@aptero/axolotis-player";
 
-export class Factory implements WebpackLazyModule, Service<DebugBtn> {
-  async createService(services: LazyServices): Promise<DebugBtn> {
+export class Factory implements WebpackLazyModule, ComponentFactory<DebugBtn> {
+  async createComponent(world: WorldEntity, params: any): Promise<DebugBtn> {
+    let services = world.getFirstComponentByType<Services>(Services.name);
     let frameLoop = await services.getService<FrameLoop>(
-      "@aptero/axolotis-player/modules/FrameLoop"
+      "@aptero/axolotis-core-plugins/frame/FrameLoop"
     );
     return new DebugBtn(frameLoop, services);
   }
 }
 
 export class DebugBtn implements Component {
-  constructor(frameLoop: FrameLoop, serviceEntity: LazyServices) {
+  constructor(frameLoop: FrameLoop, services: LazyServices) {
     let html =
       '<div id="debug-btn" style="display: block;\n' +
       "    font-family: monospace;\n" +
@@ -39,19 +39,19 @@ export class DebugBtn implements Component {
       elementById.onclick = (evt) => {
         evt.stopPropagation();
         evt.preventDefault();
-        serviceEntity.getService<PerformanceStats>(
-          "@aptero/axolotis-core-plugins/modules/debug/PerformanceStats"
+        services.getService<PerformanceStats>(
+          "@aptero/axolotis-core-plugins/debug/PerformanceStats"
         );
       };
       frameLoop.addLoop(DebugBtn.name, (delta) => {
         (elementById as any).innerText =
           Math.round((1.0 / delta) * 1000) + " FPS";
       });
-    }
-    if (window.location.host.startsWith("localhost")) {
-      serviceEntity.getService<PerformanceStats>(
-        "@aptero/axolotis-core-plugins/modules/debug/PerformanceStats"
-      );
+      if (window.location.host.startsWith("localhost")) {
+        services.getService<PerformanceStats>(
+          "@aptero/axolotis-core-plugins/debug/PerformanceStats"
+        );
+      }
     }
   }
 

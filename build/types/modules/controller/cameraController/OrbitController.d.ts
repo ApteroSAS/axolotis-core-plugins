@@ -1,8 +1,9 @@
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
-import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
-import { FrameLoop, LazyServices } from "@aptero/axolotis-player/build/types";
-import { Service } from "@aptero/axolotis-player/build/types/modules/core/service/LazyServices";
+import { LazyServices } from "@aptero/axolotis-player/build/types";
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
+import { Service } from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
+import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
+import { FrameLoop } from "@root/lib/modules/frame/FrameLoop";
 export declare class Factory implements WebpackLazyModule, Service<OrbitController> {
     createService(services: LazyServices): Promise<OrbitController>;
 }

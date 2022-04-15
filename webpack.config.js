@@ -28,6 +28,10 @@ module.exports = {
   mode: "production",
   devtool: 'source-map', //for prod
   //devtool: 'eval-source-map', //for debug
+  performance: {
+    maxEntrypointSize: 1000000,
+    maxAssetSize: 1000000
+  },
   entry:{
     index: path.join(__dirname, './src/lib/index.ts'),
   },

@@ -1,12 +1,9 @@
 import * as THREE from "three";
 import { Euler, Quaternion, Vector3 } from "three";
-import { FrameLoop } from "@aptero/axolotis-player/build/types/modules/FrameLoop";
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
-import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
 import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
 import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
-//import { ServiceEntity } from "@aptero/axolotis-player/build/types/modules/core/service/ServiceEntity";
-import { ServiceEntity } from "@aptero/axolotis-player";
+import { Services } from "@aptero/axolotis-player";
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
 import { Input } from "@root/lib/modules/controller/pathFindingPlayer/Input";
 import {
@@ -14,6 +11,8 @@ import {
   PlayerService,
 } from "@root/lib/modules/controller/PlayerService";
 import { NavMeshPathfinder } from "@root/lib/modules/controller/pathFindingPlayer/NavMeshPathfinder";
+import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
+import { FrameLoop } from "@root/lib/modules/frame/FrameLoop";
 
 export class Factory
   implements WebpackLazyModule, ComponentFactory<NavMeshPlayer>
@@ -22,20 +21,18 @@ export class Factory
     world: WorldEntity,
     config: any
   ): Promise<NavMeshPlayer> {
-    let services = world.getFirstComponentByType<ServiceEntity>(
-      ServiceEntity.name
-    );
+    let services = world.getFirstComponentByType<Services>(Services.name);
     let three = await services.getService<ThreeLib>(
-      "@aptero/axolotis-core-plugins/modules/three/ThreeLib"
+      "@aptero/axolotis-core-plugins/three/ThreeLib"
     );
     let input = await services.getService<Input>(
-      "@aptero/axolotis-core-plugins/modules/controller/pathFindingPlayer/Input"
+      "@aptero/axolotis-core-plugins/controller/pathFindingPlayer/Input"
     );
     let playerService = await services.getService<PlayerService>(
-      "@aptero/axolotis-core-plugins/modules/controller/PlayerService"
+      "@aptero/axolotis-core-plugins/controller/PlayerService"
     );
     let frameLoop = await services.getService<FrameLoop>(
-      "@aptero/axolotis-player/modules/FrameLoop"
+      "@aptero/axolotis-core-plugins/frame/FrameLoop"
     );
     //let position = new THREE.Vector3(2.14, 1.48, -1.36);
     //let position = new THREE.Vector3(0,5,0);

@@ -160,19 +160,18 @@
 
 <ax-scene>
     <ax-entity>
-        <ax-component module="@local/ComponentExample" config='{position:{x:1,y:2,z:3}}'></ax-component>
-        <ax-component module="@aptero/axolotis-core-plugins/modules/Sky" config='{skymap:"assets/static/default/sky.jpg"}'></ax-component>
-        <ax-component module="@aptero/axolotis-core-plugins/modules/spoke/SpokeRoomLoader" config='{"room": "yUXD7A2"}'></ax-component>
-        <ax-component module="@aptero/axolotis-core-plugins/modules/controller/pathFindingPlayer/NavMeshPlayer" config='{
+        <ax-component module="@aptero/axolotis-core-plugins/sky/Sky" config='{skymap:"assets/static/default/sky.jpg"}'></ax-component>
+        <ax-component module="@aptero/axolotis-core-plugins/spoke/SpokeRoomLoader" config='{"room": "yUXD7A2"}'></ax-component>
+        <ax-component module="@aptero/axolotis-core-plugins/controller/pathFindingPlayer/NavMeshPlayer" config='{
         "position": {
           "x": 0,
           "y": 1,
           "z": 0
         }
       }'></ax-component>
+        <ax-component module="@aptero/axolotis-core-plugins/debug/DebugBtn"></ax-component>
+        <ax-component module="@local/ComponentExample" config='{text:"Hello Basic"}'></ax-component>
     </ax-entity>
-    <ax-service module="@local/ServiceExample"></ax-service>
-    <ax-service module="@aptero/axolotis-core-plugins/modules/debug/DebugBtn"></ax-service>
 </ax-scene>
 
 </body>

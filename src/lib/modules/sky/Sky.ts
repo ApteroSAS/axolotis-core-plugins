@@ -1,22 +1,18 @@
 import * as THREE from "three";
-//import { ComponentFactory,WorldEntity,WebpackLazyModule,ServiceEntity,Component} from "@aptero/axolotis-player";
 
-import { ServiceEntity } from "@aptero/axolotis-player";
+import { Services } from "@aptero/axolotis-player";
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
-import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
 import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
 import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
-//import { ServiceEntity } from "@aptero/axolotis-player/build/types/modules/core/service/ServiceEntity";
 
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
+import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
 
 export class Factory implements WebpackLazyModule, ComponentFactory<Sky> {
   async createComponent(world: WorldEntity, config: any): Promise<Sky> {
-    let services = world.getFirstComponentByType<ServiceEntity>(
-      ServiceEntity.name
-    );
+    let services = world.getFirstComponentByType<Services>(Services.name);
     let three = await services.getService<ThreeLib>(
-      "@aptero/axolotis-core-plugins/modules/three/ThreeLib"
+      "@aptero/axolotis-core-plugins/three/ThreeLib"
     );
     let sky = new Sky();
     await sky.initialize(three, config.skymap); //"assets/static/demo2/sky.jpg"

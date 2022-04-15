@@ -1,13 +1,12 @@
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
-import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
 import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
 import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
-//import { ServiceEntity } from "@aptero/axolotis-player/build/types/modules/core/service/ServiceEntity";
-import { ServiceEntity } from "@aptero/axolotis-player";
 import SceneLoader from "@root/lib/modules/spoke/SceneLoader";
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
 import { PlayerService } from "@root/lib/modules/controller/PlayerService";
 import { load } from "@root/lib/modules/spoke/PhoenixUtils";
+import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
+import { Services } from "@aptero/axolotis-player";
 
 export class SpokeRoomLoader implements Component {
   public sceneLoader: SceneLoader | null = null;
@@ -33,14 +32,12 @@ export class Factory
     world: WorldEntity,
     config: any
   ): Promise<SpokeRoomLoader> {
-    let services = world.getFirstComponentByType<ServiceEntity>(
-      ServiceEntity.name
-    );
+    let services = world.getFirstComponentByType<Services>(Services.name);
     let three = await services.getService<ThreeLib>(
-      "@aptero/axolotis-core-plugins/modules/three/ThreeLib"
+      "@aptero/axolotis-core-plugins/three/ThreeLib"
     );
     let playerService = await services.getService<PlayerService>(
-      "@aptero/axolotis-core-plugins/modules/controller/PlayerService"
+      "@aptero/axolotis-core-plugins/controller/PlayerService"
     );
     let spokeRoomLoader = new SpokeRoomLoader(three);
     await spokeRoomLoader.loadRoom(config.room);

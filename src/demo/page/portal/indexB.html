@@ -161,14 +161,14 @@
 
 <ax-scene>
     <ax-entity>
-        <ax-component module="@aptero/axolotis-core-plugins/modules/Sky" config='{skymap:"assets/static/default/sky.jpg"}'></ax-component>
-        <ax-component module="@aptero/axolotis-core-plugins/modules/spoke/SpokeRoomLoader" config='{"room": "ruvFQop"}'></ax-component>
-        <ax-component module="@aptero/axolotis-core-plugins/modules/portals/PortalLink" config='{
+        <ax-component module="@aptero/axolotis-core-plugins/sky/Sky" config='{skymap:"assets/static/default/sky.jpg"}'></ax-component>
+        <ax-component module="@aptero/axolotis-core-plugins/spoke/SpokeRoomLoader" config='{"room": "ruvFQop"}'></ax-component>
+        <ax-component module="@aptero/axolotis-core-plugins/portals/PortalLink" config='{
         "url": "portal/indexA.html",
         "in": {"x": 1, "y": 2, "z": 2},
         "out": {"x": 1, "y": 2, "z": 2}
       }'></ax-component>
-        <ax-component module="@aptero/axolotis-core-plugins/modules/controller/pathFindingPlayer/NavMeshPlayer" config='{
+        <ax-component module="@aptero/axolotis-core-plugins/controller/pathFindingPlayer/NavMeshPlayer" config='{
         "position": {
           "x": 0,
           "y": 1,
@@ -176,7 +176,6 @@
         }
       }'></ax-component>
     </ax-entity>
-    <ax-service module="@aptero/axolotis-core-plugins/modules/debug/DebugBtn"></ax-service>
 </ax-scene>
 
 </body>

@@ -1,34 +1,34 @@
 import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
 import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
-import { CodeLoaderComponent } from "@aptero/axolotis-player/build/types/modules/core/loader/CodeLoaderComponent";
-import { WebpackLazyModule } from "@aptero/axolotis-player/build/types/modules/core/loader/WebpackLoader";
-import {
-  LazyServices,
-  Service,
-} from "@aptero/axolotis-player/build/types/modules/core/service/LazyServices";
-import { ServiceEntity } from "@aptero/axolotis-player";
-import { WorldService } from "@aptero/axolotis-player/build/types/modules/core/WorldService";
-import { FrameLoop } from "@aptero/axolotis-player/build/types/modules/FrameLoop";
+
+import { Services } from "@aptero/axolotis-player";
 import { ThreeLib } from "../three/ThreeLib";
+import { Service } from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
+import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
+import { InitialComponentLoader, LazyServices } from "@aptero/axolotis-player";
+import { WorldService } from "@root/lib/modules/worlds/WorldService";
+import { CODE_LOADER_MODULE_NAME } from "@aptero/axolotis-player";
+import { FrameLoop } from "@root/lib/modules/frame/FrameLoop";
 
 export class Factory implements WebpackLazyModule, Service<PortalsService> {
   constructor() {}
 
   async createService(services: LazyServices): Promise<PortalsService> {
     const worldService = await services.getService<WorldService>(
-      "@aptero/axolotis-player/modules/core/WorldService"
+      "@aptero/axolotis-core-plugins/worlds/WorldService"
     );
     const actualWorldService = await worldService
       .getActiveWorld()
-      .getFirstComponentByType<ServiceEntity>(ServiceEntity.name);
-    const codeLoader = await actualWorldService.getService<CodeLoaderComponent>(
-      "@aptero/axolotis-player/modules/core/loader/CodeLoaderService"
-    );
+      .getFirstComponentByType<Services>(Services.name);
+    const codeLoader =
+      await actualWorldService.getService<InitialComponentLoader>(
+        CODE_LOADER_MODULE_NAME
+      );
     const frameLoop = await services.getService<FrameLoop>(
-      "@aptero/axolotis-player/modules/FrameLoop"
+      "@aptero/axolotis-core-plugins/FrameLoop"
     );
     const three = await services.getService<ThreeLib>(
-      "@aptero/axolotis-core-plugins/modules/three/ThreeLib"
+      "@aptero/axolotis-core-plugins/three/ThreeLib"
     );
     let initialRoomUrl = "initial";
     try {
