@@ -1,7 +1,7 @@
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
+import { Component } from "@aptero/axolotis-player";
 import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
-import { Service } from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
-import { LazyServices } from "@aptero/axolotis-player/build/types";
+import { Service } from "@aptero/axolotis-player";
+import { LazyServices } from "@aptero/axolotis-player";
 export declare class Input implements Component {
     private _keyMap;
     private events;

@@ -1,8 +1,8 @@
 import { CODE_LOADER_MODULE_NAME } from "@aptero/axolotis-player";
 import { InitialComponentLoader, LazyServices } from "@aptero/axolotis-player";
 import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
-import { Service } from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
+import { Service } from "@aptero/axolotis-player";
+import { Component } from "@aptero/axolotis-player";
 
 export class Factory implements WebpackLazyModule, Service<FrameLoop> {
   async createService(services: LazyServices): Promise<FrameLoop> {
@@ -62,7 +62,7 @@ export class FrameLoop implements Component {
 
   addLoop(loopName: string, iterationCallback: (delta: number) => void) {
     if (this.loops[loopName]) {
-      throw new Error();
+      throw new Error("loop already exist : " + loopName);
     }
     this.loops[loopName] = iterationCallback;
   }

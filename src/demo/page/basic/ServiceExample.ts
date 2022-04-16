@@ -1,5 +1,5 @@
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
-import {Service} from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
+import {Component} from "@aptero/axolotis-player";
+import {Service} from "@aptero/axolotis-player";
 import {LazyServices} from "@aptero/axolotis-player";
 
 export class ServiceExample implements Component{

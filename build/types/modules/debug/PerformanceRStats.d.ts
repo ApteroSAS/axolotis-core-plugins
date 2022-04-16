@@ -1,5 +1,5 @@
-import { Service } from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
+import { Service } from "@aptero/axolotis-player";
+import { Component } from "@aptero/axolotis-player";
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
 import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
 import { LazyServices } from "@aptero/axolotis-player";

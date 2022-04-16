@@ -1,9 +1,9 @@
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
-import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
+import { Component } from "@aptero/axolotis-player";
+import { WorldEntity } from "@aptero/axolotis-player";
 
 import { Services } from "@aptero/axolotis-player";
 import { ThreeLib } from "../three/ThreeLib";
-import { Service } from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
+import { Service } from "@aptero/axolotis-player";
 import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
 import { InitialComponentLoader, LazyServices } from "@aptero/axolotis-player";
 import { WorldService } from "@root/lib/modules/worlds/WorldService";
@@ -25,7 +25,7 @@ export class Factory implements WebpackLazyModule, Service<PortalsService> {
         CODE_LOADER_MODULE_NAME
       );
     const frameLoop = await services.getService<FrameLoop>(
-      "@aptero/axolotis-core-plugins/FrameLoop"
+      "@aptero/axolotis-core-plugins/frame/FrameLoop"
     );
     const three = await services.getService<ThreeLib>(
       "@aptero/axolotis-core-plugins/three/ThreeLib"

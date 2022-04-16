@@ -1,0 +1,13 @@
+/*!
+ * 
+ *   @aptero/axolotis-core-plugins v1.0.0
+ *   https://github.com/ApteroSAS/axolotis-player
+ *
+ *   Copyright (c) Aptero (https://github.com/ApteroSAS/axolotis-player) and project contributors.
+ *
+ *   This source code is licensed under the MIT license found in the
+ *   LICENSE file in the root directory of this source tree.
+ *
+ */
+"use strict";(self.webpackChunkaxolotis_core_plugins=self.webpackChunkaxolotis_core_plugins||[]).push([[320],{787:function(e,t,o){o.r(t),o.d(t,{Factory:function(){return l},Name:function(){return a},WorldService:function(){return d},registerNewWorld:function(){return c}});var r=o(919);class l{constructor(){}async createService(e){return new d(e,await e.getService("@aptero/axolotis-core-plugins/frame/FrameLoop"),await e.getService("@aptero/axolotis-core-plugins/three/ThreeLib"))}}let n=[],i=[];(0,r.getGlobalStorage)("worlds").activeWorld||((0,r.getGlobalStorage)("worlds").worlds={},(0,r.getGlobalStorage)("worlds").activeWorld="NONE");class a{constructor(e){this.name=e}getType(){return a.name}}let s=0;function c(e){const t=(0,r.getGlobalStorage)("worlds");e.getFirstComponentByType(a.name)||e.addComponent(new a("World-"+s++));let o=e.getFirstComponentByType(a.name).name;t.worlds[o]=e,"NONE"===t.activeWorld&&(t.activeWorld=o)}class d{constructor(e,t,o){var l,n,a;a=void 0,(n="world")in(l=this)?Object.defineProperty(l,n,{value:a,enumerable:!0,configurable:!0,writable:!0}):l[n]=a,c(e.getWorld()),console.log("info");let s=null;for(const t in this.getWorlds()){const o=this.getWorlds()[t];o.getFirstComponentByType(r.Services.name)==e&&(s=o)}if(!s)throw new Error;this.world=s,e.getService(r.CODE_LOADER_MODULE_NAME).then((async e=>{await e.awaitInitialLoading();for(const e of i)e()}));const d=(0,r.getGlobalStorage)("worlds");"NONE"!==d.activeWorld&&this.setActiveWorldByName(d.activeWorld)}getType(){return d.name}getWorlds(){return(0,r.getGlobalStorage)("worlds").worlds}getActiveWorld(){let e=(0,r.getGlobalStorage)("worlds");return this.getWorlds()[e.activeWorld]}isActiveWorld(){return this.world==this.getActiveWorld()}addOnWorldChangeCallback(e){let t=arguments.length>1&&void 0!==arguments[1]&&arguments[1];n.push(e),t&&e()}addOnWorldAdded(e){let t=arguments.length>1&&void 0!==arguments[1]&&arguments[1];i.push(e),t&&e()}setActiveWorld(e){for(const t in this.getWorlds())if(e==this.getWorlds()[t])return void this.setActiveWorldByName(t);throw new Error}setActiveWorldByName(e){let t=(0,r.getGlobalStorage)("worlds");if(t.activeWorld!==e){t.activeWorld=e;for(const e of n)e()}}}}}]);
+//# sourceMappingURL=WorldService.55acb0c21fefb7a04f8e.js.map

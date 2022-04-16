@@ -2,8 +2,8 @@ import { WorldEntity } from "@aptero/axolotis-player";
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
 import { PortalsService } from "./PortalsService";
 import { PlayerService } from "../controller/PlayerService";
-import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
+import { ComponentFactory } from "@aptero/axolotis-player";
+import { Component } from "@aptero/axolotis-player";
 import { initHtmlFromUrl } from "@aptero/axolotis-player";
 import {
   Box3,

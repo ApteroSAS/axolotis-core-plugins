@@ -1,57 +1,80 @@
 import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
-import { Service } from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
 import {
+  Service,
   InitialComponentLoader,
   LazyServices,
   Services,
   WorldEntity,
-} from "@aptero/axolotis-player";
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
-import {
+  Component,
   CODE_LOADER_MODULE_NAME,
   getGlobalStorage,
 } from "@aptero/axolotis-player";
+import { FrameLoop } from "@root/lib/modules/frame/FrameLoop";
+import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
 
 export class Factory implements WebpackLazyModule, Service<WorldService> {
   constructor() {}
 
   async createService(services: LazyServices): Promise<WorldService> {
-    return new WorldService(services);
+    return new WorldService(
+      services,
+      await services.getService<FrameLoop>(
+        "@aptero/axolotis-core-plugins/frame/FrameLoop"
+      ),
+      await services.getService<ThreeLib>(
+        "@aptero/axolotis-core-plugins/three/ThreeLib"
+      )
+    );
   }
 }
 
 let addOnWorldChangeCallback: (() => void)[] = []; //do not use events emitter here to avoid surcharing dependencies in the code modules
 let addOnWorldAddedCallback: (() => void)[] = []; //do not use events emitter here to avoid surcharing dependencies in the code modules
+
 interface Worlds {
-  world: WorldEntity;
-  activeWorld: number;
-  worlds: WorldEntity[];
+  activeWorld: string;
+  worlds: { [id: string]: WorldEntity };
 }
 
 if (!getGlobalStorage<Worlds>("worlds").activeWorld) {
   //initialize world service
-  getGlobalStorage<Worlds>("worlds").worlds = [];
-  getGlobalStorage<Worlds>("worlds").activeWorld = -1;
+  getGlobalStorage<Worlds>("worlds").worlds = {};
+  getGlobalStorage<Worlds>("worlds").activeWorld = "NONE";
 }
 
+export class Name implements Component {
+  constructor(public name: string) {}
+  getType(): string {
+    return Name.name;
+  }
+}
+let worldNumber = 0;
 export function registerNewWorld(worldEntity: WorldEntity) {
-  //TODO have a way to identify world and guarantee unicity here
   const worlds = getGlobalStorage<Worlds>("worlds");
-  worlds.worlds.push(worldEntity);
-  if (worlds.activeWorld < 0) {
-    worlds.activeWorld = 0;
-    worlds.world = worlds.worlds[worlds.activeWorld];
+  let componentByType = worldEntity.getFirstComponentByType<Name>(Name.name);
+  if (!componentByType) {
+    worldEntity.addComponent<Name>(new Name("World-" + worldNumber++));
+  }
+  let worldName = worldEntity.getFirstComponentByType<Name>(Name.name).name;
+  worlds.worlds[worldName] = worldEntity;
+  if (worlds.activeWorld === "NONE") {
+    worlds.activeWorld = worldName;
   }
 }
 
 export class WorldService implements Component {
   private world: WorldEntity;
 
-  constructor(services: LazyServices) {
+  constructor(
+    services: LazyServices,
+    frameLoop: FrameLoop,
+    threeLib: ThreeLib
+  ) {
     registerNewWorld(services.getWorld());
     console.log("info");
     let worldtmp: any = null;
-    for (const world of this.getWorlds()) {
+    for (const key in this.getWorlds()) {
+      const world = this.getWorlds()[key];
       let wservices = world.getFirstComponentByType<Services>(Services.name);
       if (wservices == services) {
         worldtmp = world;
@@ -66,24 +89,33 @@ export class WorldService implements Component {
     services
       .getService<InitialComponentLoader>(CODE_LOADER_MODULE_NAME)
       .then(async (codeLoader) => {
-        codeLoader.awaitInitialLoading();
+        await codeLoader.awaitInitialLoading();
         for (const callback of addOnWorldAddedCallback) {
           callback();
         }
       });
-
-    if (getGlobalStorage<Worlds>("worlds").activeWorld >= 0) {
-      this.setActiveWorldByNumber(
-        getGlobalStorage<Worlds>("worlds").activeWorld
-      );
+    const worlds = getGlobalStorage<Worlds>("worlds");
+    if (worlds.activeWorld !== "NONE") {
+      this.setActiveWorldByName(worlds.activeWorld);
     }
+
+    /*
+    TODO there is a bug with this portal system
+    this.addOnWorldChangeCallback(() => {
+      window.removeEventListener("resize", threeLib.onWindowResize);
+      frameLoop.removeLoop(ThreeLib.name);
+      if (this.isActiveWorld()) {
+        window.addEventListener("resize", threeLib.onWindowResize, false);
+        frameLoop.addLoop(ThreeLib.name, threeLib.render);
+      }
+    }, true);*/
   }
 
   getType(): string {
     return WorldService.name;
   }
 
-  getWorlds(): WorldEntity[] {
+  getWorlds(): { [id: string]: WorldEntity } {
     let globalStorage = getGlobalStorage<Worlds>("worlds");
     return globalStorage.worlds;
   }
@@ -112,19 +144,19 @@ export class WorldService implements Component {
   }
 
   setActiveWorld(world: WorldEntity) {
-    for (let i = 0; i < this.getWorlds().length; i++) {
-      if (world == this.getWorlds()[i]) {
-        this.setActiveWorldByNumber(i);
+    for (const key in this.getWorlds()) {
+      if (world == this.getWorlds()[key]) {
+        this.setActiveWorldByName(key);
         return;
       }
     }
     throw new Error();
   }
 
-  setActiveWorldByNumber(number: number) {
-    if (getGlobalStorage<Worlds>("worlds").activeWorld != number) {
-      getGlobalStorage<Worlds>("worlds").activeWorld = number;
-      getGlobalStorage<Worlds>("worlds").world = this.getWorlds()[number];
+  setActiveWorldByName(name: string) {
+    let globalStorage = getGlobalStorage<Worlds>("worlds");
+    if (globalStorage.activeWorld !== name) {
+      globalStorage.activeWorld = name;
       for (const callback of addOnWorldChangeCallback) {
         callback();
       }

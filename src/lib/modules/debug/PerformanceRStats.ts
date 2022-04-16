@@ -1,4 +1,4 @@
-import { Service } from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
+import { Service } from "@aptero/axolotis-player";
 
 const html =
   "<style>\n" +
@@ -119,7 +119,7 @@ const html =
   "    }\n" +
   "</style>\n";
 
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
+import { Component } from "@aptero/axolotis-player";
 import Stats from "three/examples/jsm/libs/stats.module";
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
 import NavMeshPlayer from "@root/lib/modules/controller/pathFindingPlayer/NavMeshPlayer";
@@ -202,7 +202,7 @@ export class PerformanceRStats implements Component {
       groups: [],
       plugins: plugins,
     };
-    for (let i = 0; i < this.worldService.getWorlds().length; i++) {
+    /*for (let i = 0; i < this.worldService.getWorlds().length; i++) {
       config.values[FrameLoop.name.toLowerCase() + "-" + i] = {
         caption: FrameLoop.name + " (ms)",
         over: 10,
@@ -229,14 +229,14 @@ export class PerformanceRStats implements Component {
         ],
         //PortalsService.name.toLowerCase()+"-"+i]
       });
-    }
+    }*/
     this.rS = new rStats(config);
   }
 
   updateWorldCallback() {
     console.log("new world :", this.worldService.getWorlds());
     this.updateRstats();
-    this.worldService.getWorlds().forEach(async (world, index) => {
+    /*this.worldService.getWorlds().forEach(async (world, index) => {
       let services = world.getFirstComponentByType<Services>(Services.name);
       let frameLoop = await services.getService<FrameLoop>(
         "@aptero/axolotis-core-plugins/frame/FrameLoop"
@@ -249,7 +249,7 @@ export class PerformanceRStats implements Component {
           this.rS(name.toLowerCase() + "-" + index).end();
         }
       );
-    });
+    });*/
   }
 
   getType(): string {

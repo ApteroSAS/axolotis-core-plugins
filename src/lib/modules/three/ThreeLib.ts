@@ -1,11 +1,11 @@
 import { assetsLoader } from "@root/lib/modules/three/ThreeAssetsLoader";
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
+import { Component } from "@aptero/axolotis-player";
 import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import { FrameLoop } from "@root/lib/modules/frame/FrameLoop";
 //import { WorldService } from "@root/lib/modules/worlds/WorldService";
 import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
-import { Service } from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
-import { LazyServices } from "@aptero/axolotis-player/build/types";
+import { Service } from "@aptero/axolotis-player";
+import { LazyServices } from "@aptero/axolotis-player";
 
 declare let window: any;
 
@@ -43,6 +43,8 @@ export class ThreeLib implements Component {
   scene: Scene;
   camera: PerspectiveCamera;
   preRenderPass: (() => void)[] = [];
+  render: () => void;
+  onWindowResize: () => void;
 
   constructor(
     private frameLoop: FrameLoop,
@@ -63,7 +65,7 @@ export class ThreeLib implements Component {
     );
     this.camera.position.z = 2;
 
-    const render = () => {
+    this.render = () => {
       for (const prerender of this.preRenderPass) {
         prerender();
       }
@@ -73,11 +75,11 @@ export class ThreeLib implements Component {
       this.renderer.autoClear = true;
     };
 
-    const onWindowResize = () => {
+    this.onWindowResize = () => {
       this.camera.aspect = window.innerWidth / window.innerHeight;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(window.innerWidth, window.innerHeight);
-      render();
+      this.render();
     };
 
     /*
@@ -91,8 +93,8 @@ export class ThreeLib implements Component {
     }, true);
     */
     //setup three loop
-    window.addEventListener("resize", onWindowResize, false);
-    this.frameLoop.addLoop(ThreeLib.name, render);
+    window.addEventListener("resize", this.onWindowResize, false);
+    this.frameLoop.addLoop(ThreeLib.name, this.render);
   }
 
   async loadAssets(path: string) {

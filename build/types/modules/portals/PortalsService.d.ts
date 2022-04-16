@@ -1,7 +1,7 @@
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
-import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
+import { Component } from "@aptero/axolotis-player";
+import { WorldEntity } from "@aptero/axolotis-player";
 import { ThreeLib } from "../three/ThreeLib";
-import { Service } from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
+import { Service } from "@aptero/axolotis-player";
 import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
 import { LazyServices } from "@aptero/axolotis-player";
 import { WorldService } from "@root/lib/modules/worlds/WorldService";

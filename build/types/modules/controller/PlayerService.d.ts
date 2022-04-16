@@ -1,8 +1,8 @@
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
+import { Component } from "@aptero/axolotis-player";
 import * as THREE from "three";
 import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
-import { LazyServices } from "@aptero/axolotis-player/build/types";
-import { Service } from "@aptero/axolotis-player/build/types/modules/core/ecs/Service";
+import { LazyServices } from "@aptero/axolotis-player";
+import { Service } from "@aptero/axolotis-player";
 export declare class Factory implements WebpackLazyModule, Service<PlayerService> {
     createService(services: LazyServices): Promise<PlayerService>;
 }

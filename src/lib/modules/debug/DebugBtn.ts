@@ -1,9 +1,9 @@
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
+import { Component } from "@aptero/axolotis-player";
 import { PerformanceStats } from "@root/lib/modules/debug/PerformanceStats";
 import { WebpackLazyModule } from "@root/lib/generated/webpack/WebpackLoader";
 import { LazyServices, WorldEntity } from "@aptero/axolotis-player";
 import { FrameLoop } from "@root/lib/modules/frame/FrameLoop";
-import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
+import { ComponentFactory } from "@aptero/axolotis-player";
 import { Services } from "@aptero/axolotis-player";
 
 export class Factory implements WebpackLazyModule, ComponentFactory<DebugBtn> {

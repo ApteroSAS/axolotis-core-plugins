@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
-import { ComponentFactory } from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
-import { WorldEntity } from "@aptero/axolotis-player/build/types/modules/core/ecs/WorldEntity";
+import { Component } from "@aptero/axolotis-player";
+import { ComponentFactory } from "@aptero/axolotis-player";
+import { WorldEntity } from "@aptero/axolotis-player";
 import { ThreeLib } from "@root/lib/modules/three/ThreeLib";
 import { Input } from "@root/lib/modules/controller/pathFindingPlayer/Input";
 import { Player, PlayerService } from "@root/lib/modules/controller/PlayerService";

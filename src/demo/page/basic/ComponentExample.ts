@@ -1,6 +1,6 @@
 import {ServiceExample} from "./ServiceExample";
-import {ComponentFactory} from "@aptero/axolotis-player/build/types/modules/core/ecs/ComponentFactory";
-import Component from "@aptero/axolotis-player/build/types/modules/core/ecs/Component";
+import {ComponentFactory} from "@aptero/axolotis-player";
+import {Component} from "@aptero/axolotis-player";
 import {Services, WorldEntity} from "@aptero/axolotis-player";
 
 export class ComponentExample implements Component{
