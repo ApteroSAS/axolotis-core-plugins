@@ -27,7 +27,7 @@ jobs:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
-          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn --network-timeout 100000
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
