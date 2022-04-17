@@ -16,8 +16,8 @@
     "start": "yarn run dev",
     "dev": "webpack serve --config webpack.config.demo.js",
     "dev:watch": "tsc-watch --onSuccess \"yarn run only-build\"",
-    "test": "jest --silent",
-    "coverage": "yarn run test -- --coverage",
+    "test": "jest --silent --ci --runInBand --reporters=default --reporters=jest-junit",
+    "coverage": "jest --silent --ci --runInBand --reporters=default --reporters=jest-junit --coverage",
     "trypublish": "yarn publish || true"
   },
   "repository": {
@@ -73,6 +73,7 @@
   "dependencies": {
     "@aptero/axolotis-player": "git+https://github.com/ApteroSAS/axolotis-player.git#bdd5283655d7c75c2be33f1096efec835253328c",
     "eventemitter3": "^4.0.7",
+    "jest-junit": "^13.1.0",
     "phoenix": "^1.6.7",
     "three": "^0.139.2",
     "three-pathfinding": "^1.1.0",
