@@ -41,6 +41,8 @@ jobs:
           command: yarn run coverage
       - store_test_results:
           path: ./junit.xml
+      - store_artifacts:
+          path: coverage
       - codecov/upload
 
 workflows:
