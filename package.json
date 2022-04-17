@@ -17,7 +17,7 @@
     "dev": "webpack serve --config webpack.config.demo.js",
     "dev:watch": "tsc-watch --onSuccess \"yarn run only-build\"",
     "test": "jest --silent --ci --runInBand --reporters=default --reporters=jest-junit",
-    "coverage": "jest --silent --ci --runInBand --reporters=default --reporters=jest-junit --coverage",
+    "coverage": "jest --silent --ci --runInBand --reporters=default --reporters=jest-junit --coverage --collectCoverageFrom='src/lib/**/*.ts'",
     "trypublish": "yarn publish || true"
   },
   "repository": {
