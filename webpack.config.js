@@ -33,7 +33,7 @@ module.exports = {
     maxAssetSize: 1000000
   },
   entry:{
-    index: path.join(__dirname, './src/lib/index.ts'),
+    index: path.join(__dirname, './src/lib/Index.ts'),
   },
   output: {
     chunkFilename: '[name].[chunkhash].js',
@@ -83,8 +83,8 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      three: path.resolve("./node_modules/three"),
-      "@root": path.resolve("./src")
+      three: path.join(__dirname, "./node_modules/three"),
+      "@root": path.join(__dirname, "./src")
     },
     fallback: {
       'fs': false,
