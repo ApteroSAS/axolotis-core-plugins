@@ -5,7 +5,7 @@
 
 import { initHtml } from "@aptero/axolotis-player";
 import { registerLocalModule } from "@aptero/axolotis-player";
-import "@root/lib";//import axolotis core plugins
+import "../Index";//import axolotis core plugins
 it('dom init test1', () => {
 
 });
