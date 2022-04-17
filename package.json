@@ -18,7 +18,6 @@
     "dev:watch": "tsc-watch --onSuccess \"yarn run only-build\"",
     "test": "jest --silent",
     "coverage": "yarn run test -- --coverage",
-    "prepare": "yarn run build",
     "trypublish": "yarn publish || true"
   },
   "repository": {
