@@ -9,9 +9,9 @@
   dependencies:
     "@jridgewell/trace-mapping" "^0.3.0"
 
-"@aptero/axolotis-player@git+https://github.com/ApteroSAS/axolotis-player.git#4aeef68f458ab64b9f4b9a24a9cd5cd32722c323":
+"@aptero/axolotis-player@git+https://github.com/ApteroSAS/axolotis-player.git#bdd5283655d7c75c2be33f1096efec835253328c":
   version "2.0.0"
-  resolved "git+https://github.com/ApteroSAS/axolotis-player.git#4aeef68f458ab64b9f4b9a24a9cd5cd32722c323"
+  resolved "git+https://github.com/ApteroSAS/axolotis-player.git#bdd5283655d7c75c2be33f1096efec835253328c"
 
 "@babel/cli@^7.17.6":
   version "7.17.6"
@@ -798,7 +798,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.16.7"
 
-"@babel/plugin-transform-typescript@^7.16.7", "@babel/plugin-transform-typescript@^7.16.8":
+"@babel/plugin-transform-typescript@^7.16.8":
   version "7.16.8"
   resolved "https://registry.npmjs.org/@babel/plugin-transform-typescript/-/plugin-transform-typescript-7.16.8.tgz"
   integrity sha512-bHdQ9k7YpBDO2d0NVfkj51DpQcvwIzIusJ7mEUaMlbZq3Kt/U47j24inXZHQ5MDiYpCs+oZiwnXyKedE8+q7AQ==
@@ -920,15 +920,6 @@
     "@babel/plugin-transform-dotall-regex" "^7.4.4"
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
-
-"@babel/preset-typescript@^7.16.7":
-  version "7.16.7"
-  resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.16.7.tgz#ab114d68bb2020afc069cd51b37ff98a046a70b9"
-  integrity sha512-WbVEmgXdIyvzB77AQjGBEyYPZx+8tTsO50XtfozQrkW8QB2rLJpH2lgx0TRw5EJrBxOZQ+wCcyPVQvS8tjEHpQ==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.16.7"
-    "@babel/helper-validator-option" "^7.16.7"
-    "@babel/plugin-transform-typescript" "^7.16.7"
 
 "@babel/runtime@^7.8.4":
   version "7.17.8"

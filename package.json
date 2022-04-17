@@ -71,7 +71,7 @@
     "webpack-dev-server": "4.7.4"
   },
   "dependencies": {
-    "@aptero/axolotis-player": "git+https://github.com/ApteroSAS/axolotis-player.git#4aeef68f458ab64b9f4b9a24a9cd5cd32722c323",
+    "@aptero/axolotis-player": "git+https://github.com/ApteroSAS/axolotis-player.git#bdd5283655d7c75c2be33f1096efec835253328c",
     "eventemitter3": "^4.0.7",
     "phoenix": "^1.6.6",
     "three": "^0.135.0",

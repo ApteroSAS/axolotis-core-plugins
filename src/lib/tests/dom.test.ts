@@ -9,7 +9,7 @@ import "@root/lib";//import axolotis core plugins
 it('dom init test1', () => {
 
 });
-
+/*
 it('dom init test', () => {
   document.body.innerHTML = "<ax-scene>\n" +
       "    <ax-entity>\n" +
@@ -43,4 +43,4 @@ it('dom init test', () => {
 
   initHtml();
 
-});
+});*/
