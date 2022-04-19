@@ -9,6 +9,30 @@ import {FrameLoop} from "../../lib/modules/frame/FrameLoop";
 //https://dev.to/anishkny/code-coverage-for-a-nextjs-app-using-playwright-tests-18n7
 import { test, expect } from './baseFixtures';
 
+test('index.html', async ({ page }) => {
+    await page.goto('index.html');
+    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('load');
+    await page.screenshot({ path: './coverage/store/index.png' });
+});
+
+test('get.webgl.org', async ({ page }) => {
+    await page.goto('https://get.webgl.org/');
+    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('load');
+    await page.screenshot({ path: './coverage/store/webgl.png' });
+});
+
+test('/basic/index.html', async ({ page }) => {
+    await page.goto('/basic/index.html');
+    await page.mainFrame().waitForLoadState('networkidle');
+    await page.mainFrame().waitForLoadState('domcontentloaded');
+    await page.mainFrame().waitForLoadState('load');
+    await page.screenshot({ path: './coverage/store/index-basic.png' });
+});
+
 test('test1', async ({ page }) => {
     const world = await createWorld();
     const entity = new Entity();
@@ -41,22 +65,6 @@ test('createWorld 2', async ({ page }) => {
     entity.addComponent<FrameLoop>(new FrameLoop());
     await entity.addComponentAsync("@local/ComponentExample", {text: "hello"});
     await entity.addComponentAsync("@local/ComponentExample", {text: "hello2"});
-});
-
-test('get.webgl.org', async ({ page }) => {
-    await page.goto('https://get.webgl.org/');
-    await page.waitForLoadState('networkidle');
-    await page.waitForLoadState('domcontentloaded');
-    await page.waitForLoadState('load');
-    await page.screenshot({ path: './coverage/store/webgl.png' });
-});
-
-test('/basic/index.html', async ({ page }) => {
-    await page.goto('http://localhost:9080/basic/index.html');
-    await page.mainFrame().waitForLoadState('networkidle');
-    await page.mainFrame().waitForLoadState('domcontentloaded');
-    await page.mainFrame().waitForLoadState('load');
-    await page.screenshot({ path: './coverage/store/index.png' });
 });
 
 /*test('test', async ({ page }) => {

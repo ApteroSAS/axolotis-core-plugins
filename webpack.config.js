@@ -83,8 +83,8 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      three: path.join(__dirname, "./node_modules/three"),
-      "@root": path.join(__dirname, "./src")
+      three: path.resolve("./node_modules/three"),
+      "@root": path.resolve("./src")
     },
     fallback: {
       'fs': false,
