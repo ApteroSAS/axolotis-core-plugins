@@ -44,9 +44,6 @@ jobs:
           command: yarn run ci
       - store_artifacts:
           path: ./coverage/store/
-      #just for debug remove after
-      - store_artifacts:
-          path: ./dist/
       - store_test_results:
           path: ./junit.xml
       - codecov/upload
