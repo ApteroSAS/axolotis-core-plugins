@@ -54,19 +54,19 @@ module.exports = {
       chunksSortMode: "manual"
     }),
     new HTMLWebpackPlugin({
-      filename: "/basic/index.html",
+      filename: "basic/index.html",
       template: path.join(__dirname, "./src/demo/page/basic/index.html"),
       chunks: ["basic"],
       chunksSortMode: "manual"
     }),
     new HTMLWebpackPlugin({
-      filename: "/portal/indexA.html",
+      filename: "portal/indexA.html",
       template: path.join(__dirname, "./src/demo/page/portal/indexA.html"),
       chunks: ["portalA"],
       chunksSortMode: "manual"
     }),
     new HTMLWebpackPlugin({
-      filename: "/portal/indexB.html",
+      filename: "portal/indexB.html",
       template: path.join(__dirname, "./src/demo/page/portal/indexB.html"),
       chunks: ["portalB"],
       chunksSortMode: "manual"
