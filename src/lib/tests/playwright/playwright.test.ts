@@ -7,7 +7,7 @@ import {FrameLoop} from "../../modules/frame/FrameLoop";
 
 //const { test, expect } = require('@playwright/test');
 //https://dev.to/anishkny/code-coverage-for-a-nextjs-app-using-playwright-tests-18n7
-const { test, expect } = require("playwright-test-coverage");
+import { test, expect } from './baseFixtures';
 
 test('test1', async ({ page }) => {
     const world = await createWorld();
