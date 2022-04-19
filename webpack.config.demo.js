@@ -22,13 +22,23 @@ module.exports = {
     minimize: false,
   },
   devServer: {
-    open: true,
+    open: false,
     hot: true,
     host: "localhost",
     port: 9080
   },
   module: {
     rules: [
+      {
+        //https://v4.webpack.js.org/loaders/istanbul-instrumenter-loader/
+        //https://github.com/JS-DevTools/coverage-istanbul-loader/tree/master/examples/typescript
+        test: /\.ts/,
+        exclude: /node_modules/,
+        use: [
+          "@jsdevtools/coverage-istanbul-loader",
+          "ts-loader"
+        ]
+      },
       {
         test: /\.(m|j|t)s$/,
         exclude: /(node_modules|bower_components)/,
