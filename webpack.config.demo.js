@@ -3,6 +3,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
+console.log("__dirname : "+__dirname);
 module.exports = {
   mode: "development",
   devtool: 'eval-source-map',
@@ -10,7 +11,7 @@ module.exports = {
     chunkFilename: '[name].[chunkhash].js',
     filename: "[name].js",
     publicPath: "/",
-    path: path.resolve(__dirname, "dist"),
+    path: path.join(__dirname, "dist"),
   },
   entry: {
     index: path.join(__dirname, "./src/demo/page/Index.ts"),
@@ -86,8 +87,8 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      three: path.resolve("./node_modules/three"),
-      "@root": path.resolve("./src")
+      three: path.join(__dirname,"./node_modules/three"),
+      "@root": path.join(__dirname,"./src")
     },
     fallback: {
       'fs': false,
