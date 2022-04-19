@@ -26,6 +26,8 @@ test('get.webgl.org', async ({ page }) => {
 });
 
 test('/basic/index.html', async ({ page }) => {
+    test.setTimeout(2*60*1000);//3d test can be long to load
+    await new Promise((resolve)=>setTimeout(resolve,30000))
     await page.goto('/basic/index.html');
     await expect(page).toHaveURL('basic/index.html');//can be long to load
     await page.mainFrame().waitForLoadState('networkidle');
