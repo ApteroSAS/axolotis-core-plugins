@@ -1,5 +1,5 @@
 import { initHtml } from "@aptero/axolotis-player";
-import "../../../lib";//import axolotis core plugins
+import "@root/lib/Index";//import axolotis core plugins
 
 initHtml({
     onProgress: (progress, total) => {
