@@ -23,8 +23,8 @@ module.exports = {
   },
   devServer: {
     open: !!process.env.OPEN,
-    hot: true,
-    host: "localhost",
+    allowedHosts: 'all',
+    hot: false,
     port: 9080
   },
   module: {
