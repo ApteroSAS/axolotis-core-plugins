@@ -44,6 +44,7 @@ test('createWorld 2', async ({ page }) => {
 });
 
 test('test', async ({ page }) => {
+    test.setTimeout(20*60*1000);//3d test can be long to load
     //npx playwright codegen http://localhost:9080/
     // Go to http://localhost:9080/
     await page.goto('http://localhost:9080/');
