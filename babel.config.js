@@ -5,13 +5,8 @@ const plugins = [
 ];
 
 // Instrument for code coverage in development mode
-if (
-  process.env.NODE_ENV === "development" ||
-  process.env.USE_BABEL_PLUGIN_ISTANBUL
-) {
-  console.log(
-    "Detected development environment. Instrumenting code for coverage."
-  );
+if (process.env.USE_BABEL_PLUGIN_ISTANBUL) {
+  console.log("Detected development environment. Instrumenting code for coverage.");
   plugins.push("babel-plugin-istanbul");
 } else {
   console.log("Detected prod environment.");

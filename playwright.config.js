@@ -13,7 +13,6 @@ const config = {
         command: 'yarn run coverage:serve',
         url: 'http://localhost:9080',
         timeout: 120 * 1000,
-        reuseExistingServer: !process.env.CI,
         env: {
             USE_BABEL_PLUGIN_ISTANBUL: '1',
         },

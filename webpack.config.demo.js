@@ -22,7 +22,7 @@ module.exports = {
     minimize: false,
   },
   devServer: {
-    open: true,
+    open: !!process.env.OPEN,
     hot: true,
     host: "localhost",
     port: 9080
