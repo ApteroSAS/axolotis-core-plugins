@@ -68,7 +68,7 @@ test('createWorld 2', async ({ page }) => {
     await entity.addComponentAsync("@local/ComponentExample", {text: "hello2"});
 });
 
-test('test', async ({ page }) => {
+/*test('test', async ({ page }) => {
     //test.setTimeout(20*60*1000);//3d test can be long to load
     //npx playwright codegen http://localhost:9080/
     // Go to http://localhost:9080/
@@ -81,4 +81,4 @@ test('test', async ({ page }) => {
     await page.mainFrame().waitForLoadState('networkidle');
     await page.mainFrame().waitForLoadState('domcontentloaded');
     await page.mainFrame().waitForLoadState('load');
-});
+});*/
