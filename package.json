@@ -18,8 +18,9 @@
     "dev:watch": "tsc-watch --onSuccess \"yarn run only-build\"",
     "test": "cross-env NODE_ENV=development npx playwright test",
     "test:debug": "cross-env NODE_ENV=development npx playwright test --headed",
-    "coverage:serve": "cross-env NODE_ENV=development webpack serve --config webpack.config.demo.js",
+    "coverage:serve": "cross-env NODE_ENV=development USE_BABEL_PLUGIN_ISTANBUL=1 webpack serve --config webpack.config.demo.js",
     "coverage": "cross-env NODE_ENV=development npx playwright test && nyc report",
+    "ci": "start-server-and-test coverage:serve http://localhost:9080 coverage",
     "trypublish": "yarn publish || true"
   },
   "repository": {
@@ -64,6 +65,7 @@
     "playwright": "^1.21.0",
     "prettier": "^2.6.2",
     "prettier-webpack-plugin": "^1.2.0",
+    "start-server-and-test": "^1.14.0",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.3.1",
     "tsc-watch": "^5.0.3",

@@ -9,14 +9,6 @@ const config = {
     expect: {
         timeout: 2*60*1000,
     },
-    webServer: {
-        command: 'yarn run coverage:serve',
-        url: 'http://localhost:9080',
-        timeout: 120 * 1000,
-        env: {
-            USE_BABEL_PLUGIN_ISTANBUL: '1',
-        },
-    },
     use: {
         baseURL: 'http://localhost:9080',
     },
