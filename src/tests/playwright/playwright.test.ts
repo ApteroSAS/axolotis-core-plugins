@@ -27,6 +27,7 @@ test('get.webgl.org', async ({ page }) => {
 
 test('/basic/index.html', async ({ page }) => {
     await page.goto('/basic/index.html');
+    await expect(page).toHaveURL('basic/index.html');//can be long to load
     await page.mainFrame().waitForLoadState('networkidle');
     await page.mainFrame().waitForLoadState('domcontentloaded');
     await page.mainFrame().waitForLoadState('load');
@@ -67,17 +68,17 @@ test('createWorld 2', async ({ page }) => {
     await entity.addComponentAsync("@local/ComponentExample", {text: "hello2"});
 });
 
-/*test('test', async ({ page }) => {
-    test.setTimeout(20*60*1000);//3d test can be long to load
+test('test', async ({ page }) => {
+    //test.setTimeout(20*60*1000);//3d test can be long to load
     //npx playwright codegen http://localhost:9080/
     // Go to http://localhost:9080/
-    await page.goto('http://localhost:9080/');
+    await page.goto('index.html');
     // Click text=Basic demo
     await page.locator('text=Basic demo').click();
-    await expect(page).toHaveURL('http://localhost:9080/basic/index.html',{timeout:10*60*1000});//can be long to load
+    await expect(page).toHaveURL('basic/index.html');//can be long to load
     // Click #progresscontainer div >> nth=0
     await page.locator('#progresscontainer div').first().click();
     await page.mainFrame().waitForLoadState('networkidle');
     await page.mainFrame().waitForLoadState('domcontentloaded');
     await page.mainFrame().waitForLoadState('load');
-});*/
+});
