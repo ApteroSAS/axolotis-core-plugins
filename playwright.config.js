@@ -10,13 +10,7 @@ const config = {
         timeout: 2*60*1000,
     },
     use: {
-        baseURL: 'http://localhost:9080',
-    },
-    projects: [
-        {
-            name: 'chromium',
-            use: {...devices['Desktop Chrome']},
-        },
-    ]
+        baseURL: 'http://127.0.0.1:9080',
+    }
 };
 module.exports = config;

@@ -1,9 +1,9 @@
 import { initHtml } from "@aptero/axolotis-player";
 import { registerLocalModule } from "@aptero/axolotis-player";
-import "@root/lib";//import axolotis core plugins
+import "../../../lib";//import axolotis core plugins
 
 registerLocalModule("@local/ComponentExample", async () => {
-    const module = await import("@root/demo/page/basic/ComponentExample");
+    const module = await import('@root/demo/page/basic/ComponentExample');
     return {module, classname: module.Factory.name}
 });
 registerLocalModule("@local/ServiceExample", async () => {
