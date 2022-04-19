@@ -42,6 +42,8 @@ jobs:
       - run:
           name: Run tests
           command: yarn run coverage
+      - store_artifacts:
+          path: /coverage/store/
       - store_test_results:
           path: ./junit.xml
       - codecov/upload
