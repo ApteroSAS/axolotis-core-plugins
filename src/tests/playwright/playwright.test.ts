@@ -43,9 +43,20 @@ test('createWorld 2', async ({ page }) => {
     await entity.addComponentAsync("@local/ComponentExample", {text: "hello2"});
 });
 
-test('test get.webgl.org', async ({ page }) => {
+test('get.webgl.org', async ({ page }) => {
     await page.goto('https://get.webgl.org/');
-    await page.screenshot({ path: './coverage/store/example.png' });
+    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('load');
+    await page.screenshot({ path: './coverage/store/webgl.png' });
+});
+
+test('/basic/index.html', async ({ page }) => {
+    await page.goto('http://localhost:9080/basic/index.html');
+    await page.mainFrame().waitForLoadState('networkidle');
+    await page.mainFrame().waitForLoadState('domcontentloaded');
+    await page.mainFrame().waitForLoadState('load');
+    await page.screenshot({ path: './coverage/store/index.png' });
 });
 
 /*test('test', async ({ page }) => {
