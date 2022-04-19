@@ -5,7 +5,10 @@
 const { devices } = require('@playwright/test');
 
 const config = {
-    testDir:"./src/lib/tests/playwright",
+    testDir:"./src/tests/playwright",
+    expect: {
+        timeout: 2*60*1000,
+    },
     webServer: {
         command: 'yarn run coverage:serve',
         url: 'http://localhost:9080',

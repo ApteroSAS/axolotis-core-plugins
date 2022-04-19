@@ -1,4 +1,3 @@
-
 // babel.config.js
 const plugins = [
   ["@babel/plugin-proposal-class-properties"],
@@ -6,14 +5,19 @@ const plugins = [
 ];
 
 // Instrument for code coverage in development mode
-if (process.env.NODE_ENV === "development" || process.env.USE_BABEL_PLUGIN_ISTANBUL) {
-  console.log("Detected development environment. Instrumenting code for coverage.");
+if (
+  process.env.NODE_ENV === "development" ||
+  process.env.USE_BABEL_PLUGIN_ISTANBUL
+) {
+  console.log(
+    "Detected development environment. Instrumenting code for coverage."
+  );
   plugins.push("babel-plugin-istanbul");
-}else{
+} else {
   console.log("Detected prod environment.");
 }
 
 module.exports = {
   presets: [["@babel/env"]],
-  plugins
+  plugins,
 };

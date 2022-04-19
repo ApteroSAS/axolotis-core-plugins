@@ -1,9 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import {createWorld, Entity, LazyEntity, registerLocalModule} from "@aptero/axolotis-player";
-import {ComponentExample} from "../../../demo/page/basic/ComponentExample";
-import {ServiceExample} from "../../../demo/page/basic/ServiceExample";
-import {FrameLoop} from "../../modules/frame/FrameLoop";
+import {ComponentExample} from "../../demo/page/basic/ComponentExample";
+import {ServiceExample} from "../../demo/page/basic/ServiceExample";
+import {FrameLoop} from "../../lib/modules/frame/FrameLoop";
 
 //const { test, expect } = require('@playwright/test');
 //https://dev.to/anishkny/code-coverage-for-a-nextjs-app-using-playwright-tests-18n7
@@ -19,12 +19,12 @@ test('test1', async ({ page }) => {
 test('createWorld 2', async ({ page }) => {
     let localModuleStorage = {};
     registerLocalModule("@local/ServiceExample", async () => {
-        const module = await import("../../../demo/page/basic/ServiceExample");
+        const module = await import("../../demo/page/basic/ServiceExample");
         return {module, classname: module.Factory.name}
     },localModuleStorage);
 
     registerLocalModule("@local/ComponentExample", async () => {
-        const module = await import("../../../demo/page/basic/ComponentExample");
+        const module = await import("../../demo/page/basic/ComponentExample");
         return {module, classname: module.Factory.name}
     },localModuleStorage);
     let worldEntity = await createWorld({
@@ -49,7 +49,7 @@ test('test', async ({ page }) => {
     await page.goto('http://localhost:9080/');
     // Click text=Basic demo
     await page.locator('text=Basic demo').click();
-    await expect(page).toHaveURL('http://localhost:9080/basic/index.html');
+    await expect(page).toHaveURL('http://localhost:9080/basic/index.html',{timeout:10*60*1000});//can be long to load
     // Click #progresscontainer div >> nth=0
     await page.locator('#progresscontainer div').first().click();
     await page.mainFrame().waitForLoadState('networkidle');
