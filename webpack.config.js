@@ -38,7 +38,7 @@ module.exports = {
   output: {
     chunkFilename: '[name].[chunkhash].js',
     filename: '[name].js',
-    path: path.resolve(__dirname, 'build'),
+    path: path.join(__dirname, 'build'),
     library: "axolotis-core-plugins",
     libraryTarget: 'umd',
     umdNamedDefine: true
@@ -83,8 +83,8 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      three: path.resolve("./node_modules/three"),
-      "@root": path.resolve("./src")
+      three: path.join(__dirname,"./node_modules/three"),
+      "@root": path.join(__dirname,"./src")
     },
     fallback: {
       'fs': false,
