@@ -19,7 +19,7 @@
     "ci:test": "cross-env NODE_ENV=development npx playwright test",
     "ci:test:debug": "cross-env NODE_ENV=development npx playwright test --headed",
     "ci:coverage:serve": "cross-env NODE_ENV=development USE_BABEL_PLUGIN_ISTANBUL=1 webpack --stats-error-details --config webpack.config.demo.js && npx http-server dist -p 9080",
-    "ci:coverage": "cross-env NODE_ENV=development npx playwright test && nyc --no-clean --silent yarn --version && nyc report",
+    "ci:coverage": "cross-env NODE_ENV=development npx playwright test && nyc --no-clean yarn --version",
     "ci": "cross-env CI=true start-server-and-test ci:coverage:serve http://localhost:9080 ci:coverage",
     "trypublish": "yarn publish || true"
   },
